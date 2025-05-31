@@ -67,6 +67,7 @@ class Triads(Enum):
 class Seventh(Enum):
     NONE = "NONE"
     DOMINANT = "7"
+    DOMINANT_SHARP_5 = "7(#5)"
     MINOR = "min7"
     HALF_DIMINISHED = "min7(b5)"
     MAJOR = "Maj7"
@@ -77,3 +78,19 @@ class Seventh(Enum):
     MAJOR_SUS4 = "Maj7(sus4)"
     SUS2 = "7(sus2)"
     SUS4 = "7(sus4)"
+
+
+class Quadriads(Enum):
+    # Ninths
+    ADD_9 = "add9"
+    FLAT_9 = "(b9)"
+    SHARP_9 = "(#9)"
+    # Elevenths
+    ADD_11 = "add11"
+    SHARP_11 = "(#11)"
+    # Thirteenths
+    ADD_13 = "add13"
+    FLAT_13 = "(b13)"
+    SHARP_13 = "(#13)"
+    MAJOR_6 = "Maj6"
+    MINOR_6 = "min6"

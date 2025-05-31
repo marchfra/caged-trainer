@@ -6,6 +6,7 @@ from enums import (
     Elevenths,
     Fifths,
     Ninths,
+    Quadriads,
     Roots,
     Seventh,
     Sevenths,
@@ -31,22 +32,22 @@ class Chord:
         self.root = random.choice(list(Roots))
         self.fifth = self.set_fifth()
         self.third = self.set_third()
-        self.components: dict[str, Enum] = {"3": self.third, "5": self.fifth}
+        self.degrees: dict[str, Enum] = {"3": self.third, "5": self.fifth}
         self.triad_type = self.get_triad()
         self.suspended = self.triad_type in (Triads.SUS2, Triads.SUS4)
         self.seventh = self.set_seventh()
-        self.components["7"] = self.seventh
+        self.degrees["7"] = self.seventh
         self.seventh_type = self.get_seventh()
-        # self.ninth = self.set_ninth()
-        # self.components["9"] = self.ninth
+        self.ninth = self.set_ninth()
+        self.degrees["9"] = self.ninth
         # self.eleventh = self.set_eleventh()
-        # self.components["11"] = self.eleventh
+        # self.degrees["11"] = self.eleventh
         # self.thirteenth = self.set_thirteenth()
-        # self.components["13"] = self.thirteenth
+        # self.degrees["13"] = self.thirteenth
 
-    def get_components(self) -> str:
+    def format_components(self) -> str:
         formatted_components: str = ""
-        for key, value in self.components.items():
+        for key, value in self.degrees.items():
             if value.name != "NONE":
                 formatted_components += f"{key}: {value.name}\n"
         return formatted_components[:-1]
@@ -67,20 +68,25 @@ class Chord:
             maj_weight = 0
         elif self.triad_type == Triads.AUGMENTED:
             dim_weight = 0
-            min_weight = 0
         else:
             dim_weight = 0
         weights = [1, min_weight, maj_weight, dim_weight]
         return random.choices(list(Sevenths), weights=weights)[0]
 
     def set_ninth(self) -> Ninths:
-        if self.suspended:
+        maj_weight, min_weight, aug_weight = 1, 1, 1
+        if (
+            self.suspended
+            or self.seventh == Seventh.HALF_DIMINISHED
+            or self.seventh == Sevenths.DIMINISHED
+        ):
             return Ninths.NONE
-        if self.third != Thirds.MAJOR:
+        if self.triad_type != Triads.MAJOR:
             aug_weight = 0
         else:
             aug_weight = 1
-        weights = [1] * (len(Ninths) - 1) + [aug_weight]
+            min_weight = 0
+        weights = [1, maj_weight, min_weight, aug_weight]
         return random.choices(list(Ninths), weights=weights)[0]
 
     def set_eleventh(self) -> Elevenths:
@@ -115,14 +121,14 @@ class Chord:
             if self.third == Thirds.MAJOR:
                 return Triads.AUGMENTED
             else:
-                raise TriadError(self.get_components())
+                raise TriadError(self.format_components())
         elif self.fifth == Fifths.FLAT:
             if self.third == Thirds.MINOR:
                 return Triads.DIMINISHED
             else:
-                raise TriadError(self.get_components())
+                raise TriadError(self.format_components())
         else:
-            raise TriadError(self.get_components())
+            raise TriadError(self.format_components())
 
     def is_seventh(self) -> bool:
         return (
@@ -145,7 +151,7 @@ class Chord:
             elif self.triad_type == Triads.SUS4:
                 return Seventh.SUS4
             else:
-                raise SeventhError(self.get_components())
+                raise SeventhError(self.format_components())
         elif self.seventh == Sevenths.MAJOR:
             if self.triad_type == Triads.MAJOR:
                 return Seventh.MAJOR
@@ -158,14 +164,27 @@ class Chord:
             elif self.triad_type == Triads.SUS4:
                 return Seventh.MAJOR_SUS4
             else:
-                raise SeventhError(self.get_components())
+                raise SeventhError(self.format_components())
         elif self.seventh == Sevenths.DIMINISHED:
             if self.triad_type == Triads.DIMINISHED:
                 return Seventh.DIMINISHED
             else:
-                raise SeventhError(self.get_components())
+                raise SeventhError(self.format_components())
         else:
             return Seventh.NONE
+
+    def is_quadriad(self) -> bool:
+        number_of_degrees = 1
+        for degree in self.degrees.values():
+            if degree.name != "NONE":
+                number_of_degrees += 1
+        return number_of_degrees == 4
+
+    def get_quadriad(self) -> Quadriads:
+        pass
+
+    def __repr__(self) -> str:
+        return self.format_components()
 
     def __str__(self) -> str:
         if self.is_triad():
@@ -173,7 +192,7 @@ class Chord:
         elif self.is_seventh():
             return f"{self.root.value:2} {self.get_seventh().value}"
         else:
-            raise ChordError(f"Invalid chord configuration\n{self.get_components()}")
+            raise ChordError(f"Invalid chord configuration\n{self.format_components()}")
 
 
 def main() -> None:
