@@ -1,0 +1,10 @@
+[project]
+name = "caged-training"
+version = "0.1.0"
+description = "Chord generator and evaluator for CAGED system"
+readme = "README.md"
+authors = [
+    { name = "Francesco Marchisotti", email = "francesco.marchisotti@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
