@@ -1,24 +1,7 @@
-from enum import Enum
 from random import choice
 
+from src.enums import Degree
 
-# Enum dei gradi con alterazioni specifiche
-class Degree(Enum):
-    R = "Root"
-    m9 = "b9"
-    M9 = "9"
-    m3 = "b3"
-    M3 = "3"
-    P4 = "4"
-    A4 = "#4"
-    P5 = "5"
-    m6 = "b6"
-    M6 = "6"
-    m7 = "b7"
-    M7 = "7"
-
-
-# Mappa degli accordi a gradi
 CHORD_DEGREE_MAP: dict[str, list[Degree]] = {
     # Triadi
     "maj": [Degree.R, Degree.M3, Degree.P5],
@@ -178,7 +161,17 @@ CHORD_DEGREE_MAP.update(
 )
 
 
+def extract_chord() -> tuple[str, list[Degree]]:
+    """Extract a random chord and its degrees."""
+
+    chord_name = choice(list(CHORD_DEGREE_MAP.keys()))
+    chord_degrees = CHORD_DEGREE_MAP[chord_name]
+    return chord_name, chord_degrees
+
+
 def main() -> None:
+    """Main function to demonstrate chord extraction."""
+
     for _ in range(100):
         print(f"X{choice(list(CHORD_DEGREE_MAP.keys()))}")
 
