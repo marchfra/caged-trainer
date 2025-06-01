@@ -13,7 +13,6 @@ CHORD_DEGREE_MAP: dict[str, list[Degree]] = {
     # Triadi add
     "add9": [Degree.R, Degree.M3, Degree.P5, Degree.M9],
     "add11": [Degree.R, Degree.M3, Degree.P5, Degree.P4],
-    "add13": [Degree.R, Degree.M3, Degree.P5, Degree.M6],
     "min(add9) [triad]": [Degree.R, Degree.m3, Degree.P5, Degree.M9],
     "min(add11) [triad]": [Degree.R, Degree.m3, Degree.P5, Degree.P4],
     "min(add13) [triad]": [Degree.R, Degree.m3, Degree.P5, Degree.M6],
