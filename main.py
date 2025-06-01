@@ -42,6 +42,7 @@ def main() -> None:
 
     user_set = set(user_modes.keys())
     compatible_set = set(compatible_modes.keys())
+    print(f"\nYou entered the following modes: {', '.join(user_set)}")
     if user_set == compatible_set:
         print("\nYou found all compatible modes!")
     else:
