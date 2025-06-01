@@ -5,6 +5,16 @@ from src.extract_chord import extract_chord
 from src.modes import SCALES, find_compatible_scale
 
 
+def generate_chord() -> tuple[Note, tuple[str, list[Degree]], Shape]:
+    """Generate a random chord with its note, name, and shape."""
+
+    chord_name, chord_degrees = extract_chord()
+    note = random.choice(list(Note)).value
+    shape = random.choice(list(Shape)).value
+
+    return note, (chord_name, chord_degrees), shape
+
+
 def get_nth_key_value_pair(d: dict, n: int) -> tuple[str, list]:
     """Get the nth key-value pair from a dictionary."""
 
@@ -15,22 +25,22 @@ def get_nth_key_value_pair(d: dict, n: int) -> tuple[str, list]:
     return key, value
 
 
-def main() -> None:
-    chord = extract_chord()
-    note = random.choice(list(Note))
-    shape = random.choice(list(Shape))
+def get_user_input() -> set[str]:
+    """Get user input for modes."""
 
-    print(f"{note.value:2} {chord[0]} in {shape.value} shape")
-
-    compatible_modes = find_compatible_scale(chord[1])
     user_modes: dict[str, list[Degree]] = {}
     for scale in SCALES:
         print()
+        # Print the modes available in the scale
         for i, mode in enumerate(scale):
             print(f"({i + 1}) {mode}")
-        answer = input("Select modes separated by a space (or 'q' to quit): ")
+
+        answer = input("Select modes (or 'q' to quit): ")
+
         if answer.lower() == "q":
-            break
+            exit(1)
+
+        # Process the user's input
         for idx in answer.split():
             try:
                 idx = int(idx) - 1
@@ -39,23 +49,37 @@ def main() -> None:
             except (ValueError, IndexError):
                 print(f"Invalid input: {idx + 1}. Please try again.")
                 continue
+    return set(user_modes.keys())
 
-    user_set = set(user_modes.keys())
-    compatible_set = set(compatible_modes.keys())
-    print(f"\nYou entered the following modes: {', '.join(user_set)}")
-    if user_set == compatible_set:
+
+def compare_modes(user_modes: set[str], compatible_modes: set[str]) -> None:
+    """Compare user modes with compatible modes and print results."""
+
+    print(f"\nYou entered the following modes: {', '.join(user_modes)}")
+    if user_modes == compatible_modes:
         print("\nYou found all compatible modes!")
     else:
-        missing_modes = compatible_set - user_set
+        missing_modes = compatible_modes - user_modes
         if missing_modes:
             print(
                 f"\nYou missed the following compatible modes: {', '.join(missing_modes)}"
             )
-        extra_modes = user_set - compatible_set
+        extra_modes = user_modes - compatible_modes
         if extra_modes:
             print(
                 f"\nYou selected extra modes that are not compatible: {', '.join(extra_modes)}"
             )
+
+
+def main() -> None:
+    note, (chord_name, chord_degrees), shape = generate_chord()
+
+    print(f"{note:2} {chord_name} in {shape} shape")
+
+    user_modes = get_user_input()
+    compatible_modes = find_compatible_scale(chord_degrees)
+
+    compare_modes(user_modes, compatible_modes)
 
 
 if __name__ == "__main__":
