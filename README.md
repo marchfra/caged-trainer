@@ -1,6 +1,6 @@
 # CAGED Trainer
 
-Generate a chord and checks if the user-provided list of modes are valid modes that the chord can harmonize.
+Generate a chord and check if the user-provided list of modes are valid modes that the chord can harmonize.
 
 ## Installation
 
