@@ -215,7 +215,7 @@ SYMMETRIC_SCALES: dict[str, list[Degree]] = {
         Degree.m3,
         Degree.M3,
         Degree.A4,
-        Degree.m6,
+        Degree.P5,
         Degree.M6,
         Degree.m7,
     ],
