@@ -4,7 +4,7 @@ Generate a chord and checks if the user-provided list of modes are valid modes t
 
 ## Installation
 
-Make sure you have both `git` and `uv` installed on your machine.
+Make sure you have `git` installed on your machine.
 
 Clone this repository with
 
@@ -14,8 +14,14 @@ git clone https://github.com/marchfra/caged-trainer.git
 
 ## Usage
 
-Run the application with
+**Using `uv` (recommended)**: if you have `uv` installed, run the application with
 
 ```shell
 uv run main.py
+```
+
+**Using python**: run the application with
+
+```shell
+python3 main.py
 ```
