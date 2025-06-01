@@ -1,5 +1,5 @@
 [project]
-name = "caged-training"
+name = "caged-trainer"
 version = "0.1.0"
 description = "Chord generator and evaluator for CAGED system"
 readme = "README.md"
