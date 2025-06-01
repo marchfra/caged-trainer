@@ -1,3 +1,4 @@
+import os
 import random
 
 from src.enums import Degree, Note, Shape
@@ -35,10 +36,7 @@ def get_user_input() -> set[str]:
         for i, mode in enumerate(scale):
             print(f"({i + 1}) {mode}")
 
-        answer = input("Select modes (or 'q' to quit): ")
-
-        if answer.lower() == "q":
-            exit(1)
+        answer = input("Select modes: ")
 
         # Process the user's input
         for idx in answer.split():
@@ -83,4 +81,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
+        new_round = input("\nPress any key to continue or 'q' to quit: ")
+
+        if new_round.lower() == "q":
+            exit(0)
+
+        os.system("clear")
