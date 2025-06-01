@@ -14,4 +14,8 @@ git clone https://github.com/marchfra/caged-trainer.git
 
 ## Usage
 
-Run the application with ```uv run main.py```.
+Run the application with
+
+```shell
+uv run main.py
+```
