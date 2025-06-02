@@ -199,16 +199,6 @@ MELODIC_MINOR_MODES: dict[str, list[Degree]] = {
 }
 
 SYMMETRIC_SCALES: dict[str, list[Degree]] = {
-    "Diminished (Whole-Half)": [
-        Degree.R,
-        Degree.M9,
-        Degree.m3,
-        Degree.P4,
-        Degree.A4,
-        Degree.m6,
-        Degree.M6,
-        Degree.M7,
-    ],
     "Diminished (Half-Whole)": [
         Degree.R,
         Degree.m9,
@@ -218,6 +208,16 @@ SYMMETRIC_SCALES: dict[str, list[Degree]] = {
         Degree.P5,
         Degree.M6,
         Degree.m7,
+    ],
+    "Diminished (Whole-Half)": [
+        Degree.R,
+        Degree.M9,
+        Degree.m3,
+        Degree.P4,
+        Degree.A4,
+        Degree.m6,
+        Degree.M6,
+        Degree.M7,
     ],
     "Whole Tone": [
         Degree.R,
