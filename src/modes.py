@@ -89,7 +89,7 @@ HARMONIC_MINOR_MODES: dict[str, list[Degree]] = {
         Degree.R,
         Degree.M9,
         Degree.M3,
-        Degree.A4,
+        Degree.P4,
         Degree.m6,
         Degree.M6,
         Degree.M7,
