@@ -249,13 +249,8 @@ def find_compatible_scale(chord_degrees: list[Degree]) -> set[str]:
 
 def main() -> None:
     """Test the find_compatible_scale function."""
-    chord_degrees: list[Degree] = [
-        Degree.R,
-        Degree.m3,
-        Degree.A4,
-        Degree.M6,
-    ]  # Dim7 chord
-    compatible_scales: set[str] = find_compatible_scale(chord_degrees)
+    chord_degrees = [Degree.R, Degree.m3, Degree.A4, Degree.M6]  # Dim7 chord
+    compatible_scales = find_compatible_scale(chord_degrees)
     for mode, degrees in compatible_scales.items():
         print(f"{mode}: {', '.join(degree.value for degree in degrees)}")
 
