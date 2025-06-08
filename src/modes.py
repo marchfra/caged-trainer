@@ -239,20 +239,23 @@ SCALES: list[dict[str, list[Degree]]] = [
 
 def find_compatible_scale(chord_degrees: list[Degree]) -> set[str]:
     """Find a compatible scale for the given chord degrees."""
-
     compatible_scales: dict[str, list[Degree]] = {}
     for scale in SCALES:
         for mode, degrees in scale.items():
             if all(degree in degrees for degree in chord_degrees):
-                compatible_scales[mode] = degrees
+                compatible_scales[mode] = degrees  # noqa: PERF403
     return set(compatible_scales.keys())
 
 
 def main() -> None:
-    """Main function to test the find_compatible_scale function."""
-
-    chord_degrees = [Degree.R, Degree.m3, Degree.A4, Degree.M6]  # Dim7 chord
-    compatible_scales = find_compatible_scale(chord_degrees)
+    """Test the find_compatible_scale function."""
+    chord_degrees: list[Degree] = [
+        Degree.R,
+        Degree.m3,
+        Degree.A4,
+        Degree.M6,
+    ]  # Dim7 chord
+    compatible_scales: set[str] = find_compatible_scale(chord_degrees)
     for mode, degrees in compatible_scales.items():
         print(f"{mode}: {', '.join(degree.value for degree in degrees)}")
 
