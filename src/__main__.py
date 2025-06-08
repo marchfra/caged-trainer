@@ -1,19 +1,20 @@
 import os
 import random
 
-from src.enums import Degree, Note, Shape
-from src.extract_chord import extract_chord
-from src.modes import SCALES, find_compatible_scale
+from chords import CHORD_DEGREE_MAP
+from enums import Degree, Note, Shape
+from modes import SCALES, find_compatible_scale
 
 
-def generate_chord() -> tuple[Note, tuple[str, list[Degree]], Shape]:
+def generate_chord() -> tuple[Note, str, list[Degree], Shape]:
     """Generate a random chord with its note, name, and shape."""
 
-    chord_name, chord_degrees = extract_chord()
+    chord_name = random.choice(list(CHORD_DEGREE_MAP.keys()))
+    chord_degrees = CHORD_DEGREE_MAP[chord_name]
     note = random.choice(list(Note)).value
     shape = random.choice(list(Shape)).value
 
-    return note, (chord_name, chord_degrees), shape
+    return note, chord_name, chord_degrees, shape
 
 
 def get_nth_key_value_pair(d: dict, n: int) -> tuple[str, list]:
@@ -70,7 +71,7 @@ def compare_modes(user_modes: set[str], compatible_modes: set[str]) -> None:
 
 
 def main() -> None:
-    note, (chord_name, chord_degrees), shape = generate_chord()
+    note, chord_name, chord_degrees, shape = generate_chord()
 
     print(f"{note:2} {chord_name} in {shape} shape")
 

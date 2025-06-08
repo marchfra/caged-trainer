@@ -1,4 +1,4 @@
-from src.enums import Degree
+from enums import Degree
 
 MAJOR_MODES: dict[str, list[Degree]] = {
     "Ionian": [
