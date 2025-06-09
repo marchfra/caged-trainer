@@ -2,15 +2,15 @@ from enums import Degree
 
 CHORD_DEGREE_MAP: dict[str, list[Degree]] = {
     # Triadi
-    "maj": [Degree.R, Degree.M3, Degree.P5],
-    "min": [Degree.R, Degree.m3, Degree.P5],
-    "dim": [Degree.R, Degree.m3, Degree.A4],
-    "aug": [Degree.R, Degree.M3, Degree.m6],
-    "sus2": [Degree.R, Degree.M9, Degree.P5],
-    "sus4": [Degree.R, Degree.P4, Degree.P5],
+    "maj [triad]": [Degree.R, Degree.M3, Degree.P5],
+    "min [triad]": [Degree.R, Degree.m3, Degree.P5],
+    "dim [triad]": [Degree.R, Degree.m3, Degree.A4],
+    "aug [triad]": [Degree.R, Degree.M3, Degree.m6],
+    "sus2 [triad]": [Degree.R, Degree.M9, Degree.P5],
+    "sus4 [triad]": [Degree.R, Degree.P4, Degree.P5],
     # Triadi add
-    "add9": [Degree.R, Degree.M3, Degree.P5, Degree.M9],
-    "add11": [Degree.R, Degree.M3, Degree.P5, Degree.P4],
+    "add9 [triad]": [Degree.R, Degree.M3, Degree.P5, Degree.M9],
+    "add11 [triad]": [Degree.R, Degree.M3, Degree.P5, Degree.P4],
     "min(add9) [triad]": [Degree.R, Degree.m3, Degree.P5, Degree.M9],
     "min(add11) [triad]": [Degree.R, Degree.m3, Degree.P5, Degree.P4],
     "min(add13) [triad]": [Degree.R, Degree.m3, Degree.P5, Degree.M6],
@@ -133,7 +133,12 @@ CHORD_DEGREE_MAP: dict[str, list[Degree]] = {
 
 
 def main() -> None:
-    pass
+    longest_chord_name = max(len(name) for name in CHORD_DEGREE_MAP)
+    for chord, degrees in CHORD_DEGREE_MAP.items():
+        print(
+            f"{chord:{longest_chord_name}} "
+            f"{', '.join([degree.name for degree in degrees])}",
+        )
 
 
 if __name__ == "__main__":

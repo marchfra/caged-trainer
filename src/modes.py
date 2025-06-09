@@ -1,6 +1,6 @@
 from enums import Degree
 
-MAJOR_MODES: dict[str, list[Degree]] = {
+MAJOR: dict[str, list[Degree]] = {
     "Ionian": [
         Degree.R,
         Degree.M9,
@@ -66,7 +66,7 @@ MAJOR_MODES: dict[str, list[Degree]] = {
     ],
 }
 
-HARMONIC_MINOR_MODES: dict[str, list[Degree]] = {
+HARMONIC_MINOR: dict[str, list[Degree]] = {
     "Harmonic Minor": [
         Degree.R,
         Degree.M9,
@@ -132,7 +132,7 @@ HARMONIC_MINOR_MODES: dict[str, list[Degree]] = {
     ],
 }
 
-MELODIC_MINOR_MODES: dict[str, list[Degree]] = {
+MELODIC_MINOR: dict[str, list[Degree]] = {
     "Melodic Minor": [
         Degree.R,
         Degree.M9,
@@ -230,9 +230,9 @@ SYMMETRIC_SCALES: dict[str, list[Degree]] = {
 }
 
 SCALES: list[dict[str, list[Degree]]] = [
-    MAJOR_MODES,
-    HARMONIC_MINOR_MODES,
-    MELODIC_MINOR_MODES,
+    MAJOR,
+    HARMONIC_MINOR,
+    MELODIC_MINOR,
     SYMMETRIC_SCALES,
 ]
 
@@ -248,11 +248,14 @@ def find_compatible_scale(chord_degrees: list[Degree]) -> set[str]:
 
 
 def main() -> None:
-    """Test the find_compatible_scale function."""
-    chord_degrees = [Degree.R, Degree.m3, Degree.A4, Degree.M6]  # Dim7 chord
-    compatible_scales = find_compatible_scale(chord_degrees)
-    for mode, degrees in compatible_scales.items():
-        print(f"{mode}: {', '.join(degree.value for degree in degrees)}")
+    for scale in SCALES:
+        longest_mode_name = max(scale.keys(), key=len)
+        for mode, degrees in scale.items():
+            print(
+                f"{mode:{len(longest_mode_name)}} "
+                f"{', '.join([degree.name for degree in degrees])}",
+            )
+        print()
 
 
 if __name__ == "__main__":
