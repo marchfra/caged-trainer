@@ -96,14 +96,6 @@ CHORD_DEGREE_MAP: dict[str, list[Degree]] = {
         Degree.m9,
         Degree.A4,
     ],
-    "7(#9, #5, b13)": [
-        Degree.R,
-        Degree.M3,
-        Degree.m6,
-        Degree.m7,
-        Degree.m3,
-        Degree.m6,
-    ],
     # Accordi alterati
     "13(#11)": [
         Degree.R,
