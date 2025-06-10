@@ -2,7 +2,7 @@
 
 Generate a chord and check if the user-provided list of modes are valid modes that the chord can harmonize.
 
-## Table of Contents
+## Table of Contents
 
 - [Installation](#installation)
     - [Binary](#binary)
