@@ -2,21 +2,20 @@ name: Build macOS Universal2 Binary with PyInstaller
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    tags:
+      - "v*"
   workflow_dispatch:
 
 jobs:
   build-universal2:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up universal2 Python from python.org
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11' # 3.11+ from python.org are universal2
+          python-version: '3.13' # 3.11+ from python.org are universal2
 
       - name: Ensure pip, wheel, setuptools are up to date
         run: python -m pip install --upgrade pip setuptools wheel
@@ -25,7 +24,7 @@ jobs:
         run: pip install "pyinstaller>=6.0.0"
 
       - name: Build universal2 app
-        run: pyinstaller --onefile --target-architecture=universal2 your_script.py --distpath dist/universal2
+        run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer src/__main__.py --distpath dist/universal2
 
       - name: Upload universal2 binary
         uses: actions/upload-artifact@v4
