@@ -34,7 +34,7 @@ You can now move the application file wherever you want it, and even make multip
 
 You can obtain the compressed source code from the [Releases page](https://github.com/marchfra/caged-trainer/releases).
 
-You will need a Python installation in order to run the application.
+You will need a Python installation in order to run the application from the source code. If you don't have Python installed, you can download it from [python.org](https://python.org).
 
 ## Usage
 
@@ -43,8 +43,6 @@ You will need a Python installation in order to run the application.
 To launch the app, just double click on it. A Terminal window will open; this is normal, as the application runs inside the Terminal.
 
 ### Source code
-
-You will need to have Python installed on your machine. If you don't have Python installed, you can download it from [python.org](https://python.org).
 
 **Using `uv` (recommended)**: if you have `uv` installed, run the application with
 
