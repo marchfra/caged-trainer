@@ -1,40 +1,36 @@
-name: Build macOS Universal Binary
+name: Build macOS Universal2 Binary with PyInstaller
 
 on:
   push:
+    branches: [main]
     tags:
-      - 'v*'    # Triggers on version tag pushes like v1.0
-  workflow_dispatch: # Manual trigger from GitHub UI
+      - "v*"
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  build-universal:
-    name: Build universal2 binary
-    runs-on: macos-latest  # Apple Silicon runner (also works for Intel)
+  build-universal2:
+    runs-on: macos-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Download and install official Python 3.13 universal2
-        run: |
-          curl -LO https://www.python.org/ftp/python/3.13.4/python-3.13.4-macos11.pkg
-          sudo installer -pkg python-3.13.4-macos11.pkg -target /
-          
-      - name: Check python architecture
-        run: file $(which python3)
+      - name: Set up universal2 Python from python.org
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13' # 3.11+ from python.org are universal2
 
-      - name: Upgrade pip and install PyInstaller
-        run: |
-          python3 -m pip install --upgrade pip
-          python3 -m venv .venv
-          source .venv/bin/activate
-          pip install pyinstaller
+      - name: Ensure pip, wheel, setuptools are up to date
+        run: python -m pip install --upgrade pip setuptools wheel
 
-      - name: Build universal2 binary with PyInstaller
-        run: |
-          pyinstaller src/__main__.py --onefile --name caged-trainer --target-architecture universal2
+      - name: Install PyInstaller 6.0.0+ (for universal2 build)
+        run: pip install "pyinstaller>=6.0.0"
 
-      - name: Upload Universal Binary artifact
+      - name: Build universal2 app
+        run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer src/__main__.py --distpath dist/universal2
+
+      - name: Upload universal2 binary
         uses: actions/upload-artifact@v4
         with:
-          name: macos-universal-binary
-          path: dist/caged-trainer
+          name: macos-universal2-app
+          path: dist/universal2/
