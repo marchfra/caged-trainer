@@ -1,0 +1,98 @@
+name: Build macOS Universal Binary
+
+on:
+  push:
+    tags:
+      - 'v*'    # Triggers on version tag pushes like v1.0
+  workflow_dispatch: # Manual trigger from GitHub UI
+
+jobs:
+  build-intel:
+    name: Build for Intel (x86_64)
+    runs-on: macos-13  # macOS runner on Intel
+    outputs:
+      artifact-path: ${{ steps.set-path.outputs.path }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install PyInstaller
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build x86_64 binary
+        run: |
+          pyinstaller --onefile --name caged-trainer src/__main__.py
+          mv dist/caged-trainer caged-trainer_x86_64
+
+      - name: Upload Intel binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: intel-binary
+          path: caged-trainer_x86_64
+
+  build-arm:
+    name: Build for ARM (Apple Silicon)
+    runs-on: macos-latest  # Apple Silicon runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install PyInstaller
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build ARM64 binary
+        run: |
+          pyinstaller --onefile --name caged-trainer src/__main__.py
+          mv dist/caged-trainer caged-trainer_arm64
+
+      - name: Upload ARM binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: arm-binary
+          path: caged-trainer_arm64
+
+  merge:
+    name: Create Universal Binary
+    runs-on: macos-latest  # lipo needs to run on Apple Silicon
+
+    needs: [build-intel, build-arm]
+
+    steps:
+      - name: Download Intel binary
+        uses: actions/download-artifact@v4
+        with:
+          name: intel-binary
+          path: .
+
+      - name: Download ARM binary
+        uses: actions/download-artifact@v4
+        with:
+          name: arm-binary
+          path: .
+
+      - name: Combine into Universal binary
+        run: |
+          lipo -create -output caged-trainer_universal caged-trainer_x86_64 caged-trainer_arm64
+          chmod +x caged-trainer_universal
+
+      - name: Upload Universal Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-universal-binary
+          path: caged-trainer_universal
