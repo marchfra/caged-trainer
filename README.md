@@ -1,5 +1,7 @@
 # CAGED Trainer
 
+*Per una versione italiana delle istruzioni clicca [qui](https://github.com/marchfra/caged-trainer/blob/main/README_IT.md).*
+
 Generate a chord and check if the user-provided list of modes are valid modes that the chord can harmonize.
 
 ## Table of Contents
@@ -8,8 +10,8 @@ Generate a chord and check if the user-provided list of modes are valid modes th
     - [Binary](#binary)
     - [Source code](#source-code)
 - [Running the app](#running-the-app)
-    - [Binary](#binary)
-    - [Source code](#source-code)
+    - [Binary](#binary-1)
+    - [Source code](#source-code-1)
 - [Usage](#usage)
 
 ## Installation
