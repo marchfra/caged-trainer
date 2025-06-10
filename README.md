@@ -36,7 +36,7 @@ You can obtain the compressed source code from the [Releases page](https://githu
 
 You will need a Python installation in order to run the application from the source code. If you don't have Python installed, you can download it from [python.org](https://python.org).
 
-## Usage
+## Running the app
 
 ### Binary
 
@@ -58,10 +58,10 @@ If you are not familiar with `uv`, you can learn more about it [here](https://gi
 python3 main.py
 ```
 
-## How to use the app
+## Usage
 
 Once the app is running, you will be shown a chord along with a chord shape.
 
-You will then be shown a list of modes derived from the major scale. To select the modes that the chord can harmonize, enter their number(s) separated by a space. When you're done, press Enter.
+You will then be shown a list of modes derived from the major scale. To select the modes that the chord can harmonize, enter their number(s) separated by a space. When you're done, press Enter. If you think there are no modes that the chord can harmonize, just press Enter.
 
-Repeat the procedure for every set of modes that will appear, then follow the instructions on screen to get a new exercise or quit the app.
+Repeat the procedure for every set of modes that will appear until you see your results, then follow the instructions on screen to get a new exercise or quit the app.
