@@ -7,92 +7,32 @@ on:
   workflow_dispatch: # Manual trigger from GitHub UI
 
 jobs:
-  build-intel:
-    name: Build for Intel (x86_64)
-    runs-on: macos-13  # macOS runner on Intel
-    outputs:
-      artifact-path: ${{ steps.set-path.outputs.path }}
-
+  build-universal:
+    name: Build universal2 binary
+    runs-on: macos-latest  # Apple Silicon runner (also works for Intel)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
+      - name: Download and install official Python 3.13 universal2
+        run: |
+          curl -LO https://www.python.org/ftp/python/3.13.0/python-3.13.0-macos11.pkg
+          sudo installer -pkg python-3.13.0-macos11.pkg -target /
+          
+      - name: Check python architecture
+        run: file $(which python3)
 
-      - name: Install PyInstaller
+      - name: Upgrade pip and install PyInstaller
         run: |
           python3 -m pip install --upgrade pip
           pip install pyinstaller
 
-      - name: Build x86_64 binary
+      - name: Build universal2 binary with PyInstaller
         run: |
-          pyinstaller --onefile --name caged-trainer src/__main__.py
-          mv dist/caged-trainer caged-trainer_x86_64
+          pyinstaller src/__main__.py --onefile --name caged-trainer --target-architecture universal2
 
-      - name: Upload Intel binary
-        uses: actions/upload-artifact@v4
-        with:
-          name: intel-binary
-          path: caged-trainer_x86_64
-
-  build-arm:
-    name: Build for ARM (Apple Silicon)
-    runs-on: macos-latest  # Apple Silicon runner
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-
-      - name: Install PyInstaller
-        run: |
-          python3 -m pip install --upgrade pip
-          pip install pyinstaller
-
-      - name: Build ARM64 binary
-        run: |
-          pyinstaller --onefile --name caged-trainer src/__main__.py
-          mv dist/caged-trainer caged-trainer_arm64
-
-      - name: Upload ARM binary
-        uses: actions/upload-artifact@v4
-        with:
-          name: arm-binary
-          path: caged-trainer_arm64
-
-  merge:
-    name: Create Universal Binary
-    runs-on: macos-latest  # lipo needs to run on Apple Silicon
-
-    needs: [build-intel, build-arm]
-
-    steps:
-      - name: Download Intel binary
-        uses: actions/download-artifact@v4
-        with:
-          name: intel-binary
-          path: .
-
-      - name: Download ARM binary
-        uses: actions/download-artifact@v4
-        with:
-          name: arm-binary
-          path: .
-
-      - name: Combine into Universal binary
-        run: |
-          lipo -create -output caged-trainer_universal caged-trainer_x86_64 caged-trainer_arm64
-          chmod +x caged-trainer_universal
-
-      - name: Upload Universal Binary
+      - name: Upload Universal Binary artifact
         uses: actions/upload-artifact@v4
         with:
           name: macos-universal-binary
-          path: caged-trainer_universal
+          path: dist/caged-trainer
