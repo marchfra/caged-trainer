@@ -25,7 +25,7 @@ jobs:
       - name: Upgrade pip and install PyInstaller
         run: |
           python3 -m pip install --upgrade pip
-          pip install pyinstaller
+          pip install --break-system-packages pyinstaller
 
       - name: Build universal2 binary with PyInstaller
         run: |
