@@ -2,6 +2,16 @@
 
 Generate a chord and check if the user-provided list of modes are valid modes that the chord can harmonize.
 
+## Table of Contents
+
+- [Installation](#installation)
+    - [Binary](#binary)
+    - [Source code](#source-code)
+- [Running the app](#running-the-app)
+    - [Binary](#binary)
+    - [Source code](#source-code)
+- [Usage](#usage)
+
 ## Installation
 
 ### Binary
