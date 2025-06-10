@@ -1,24 +1,21 @@
-name: Build macOS Universal2 Binary with PyInstaller
+name: Build and Release macOS Universal2 Binary
 
 on:
   push:
-    branches: [main]
     tags:
-      - "v*"
-  pull_request:
-    branches: [main]
+      - "v*.*.*"    # Triggers on version tags like v1.2.3
   workflow_dispatch:
 
 jobs:
   build-universal2:
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up universal2 Python from python.org
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13' # 3.11+ from python.org are universal2
+          python-version: '3.13'
 
       - name: Ensure pip, wheel, setuptools are up to date
         run: python -m pip install --upgrade pip setuptools wheel
@@ -29,8 +26,26 @@ jobs:
       - name: Build universal2 app
         run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer src/__main__.py --distpath dist/universal2
 
-      - name: Upload universal2 binary
-        uses: actions/upload-artifact@v4
+      - name: Check binary architecture
+        run: lipo -info dist/universal2/caged-trainer
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: macos-universal2-app
-          path: dist/universal2/
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/universal2/caged-trainer
+          asset_name: your_script-macos-universal2
+          asset_content_type: application/octet-stream
