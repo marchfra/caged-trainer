@@ -40,7 +40,7 @@ Potrebbe esserti chiesta la password.
 
 Ora puoi spostare il file dell'applicazione dove preferisci, e anche crearne copie.
 
-## Codice sorgente
+### Codice sorgente
 
 Puoi ottenere il codice sorgente compresso dalla [pagina Release](https://github.com/marchfra/caged-trainer/releases).
 
