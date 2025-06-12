@@ -6,6 +6,17 @@ from enums import Degree, Note, Shape
 from modes import SCALES, find_compatible_scale
 
 
+def main() -> None:
+    note, chord_name, chord_degrees, shape = generate_chord()
+
+    print(f"{note:2} {chord_name} in {shape} shape")
+
+    user_modes = get_user_input()
+    compatible_modes = find_compatible_scale(chord_degrees)
+
+    compare_modes(user_modes, compatible_modes)
+
+
 def generate_chord() -> tuple[Note, str, list[Degree], Shape]:
     """Generate a random chord with its note, name, and shape."""
     chord_name = random.choice(list(CHORD_DEGREE_MAP.keys()))
@@ -66,17 +77,6 @@ def compare_modes(user_modes: set[str], compatible_modes: set[str]) -> None:
                 f"\nYou selected extra modes that are not compatible: "
                 f"{', '.join(extra_modes)}",
             )
-
-
-def main() -> None:
-    note, chord_name, chord_degrees, shape = generate_chord()
-
-    print(f"{note:2} {chord_name} in {shape} shape")
-
-    user_modes = get_user_input()
-    compatible_modes = find_compatible_scale(chord_degrees)
-
-    compare_modes(user_modes, compatible_modes)
 
 
 if __name__ == "__main__":
