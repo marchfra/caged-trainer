@@ -18,7 +18,8 @@ def main() -> None:
     user_modes = get_user_input()
     compatible_modes = find_compatible_scale(chord_degrees)
 
-    compare_modes(user_modes, compatible_modes)
+    output = compare_modes(user_modes, compatible_modes)
+    print(output)
 
 
 def generate_chord() -> tuple[Note, str, list[Degree], Shape]:
@@ -41,7 +42,20 @@ def get_nth_key_value_pair(d: dict, n: int) -> tuple[str, list]:
 
 
 def get_user_input() -> set[str]:
-    """Get user input for modes."""
+    """Prompt the user to select modes for each scale defined in SCALES.
+
+    For each scale, displays the available modes and asks the user to input their
+    selections by entering space-separated numbers corresponding to the modes. The
+    function processes the input, validates it, and collects the selected modes.
+
+    Returns:
+        set[str]: A set containing the names of the selected modes.
+
+    Raises:
+        None directly, but prints error messages for invalid input (non-integer or
+        out-of-range values).
+
+    """
     user_modes: IntervalStructure = {}
     for name, scale in SCALES.items():
         print(f"\n{name}:")
@@ -63,25 +77,40 @@ def get_user_input() -> set[str]:
     return set(user_modes.keys())
 
 
-def compare_modes(user_modes: set[str], compatible_modes: set[str]) -> None:
-    """Compare user modes with compatible modes and print results."""
+def compare_modes(user_modes: set[str], compatible_modes: set[str]) -> str:
+    """Compare the user's modes with a set of compatible modes and generate a message.
+
+    Args:
+        user_modes : set[str]
+                The set of modes entered by the user.
+        compatible_modes : set[str]
+                The set of modes considered compatible.
+
+    Returns:
+        str: A formatted string summarizing:
+            - The modes entered by the user.
+            - Whether all compatible modes were found.
+            - Any compatible modes that were missed.
+            - Any extra modes selected by the user that are not compatible.
+
+    """
+    output = ""
     if user_modes:
-        print(f"\nYou entered the following modes: {', '.join(user_modes)}")
+        output += f"\nYou entered the following modes: {', '.join(user_modes)}\n"
     if user_modes == compatible_modes:
-        print("\nYou found all compatible modes!")
+        output += "\nYou found all compatible modes!"
     else:
         missing_modes = compatible_modes - user_modes
         if missing_modes:
-            print(
-                f"\nYou missed the following compatible modes: "
-                f"{', '.join(missing_modes)}",
-            )
+            output += "\nYou missed the following compatible modes: "
+            output += f"{', '.join(missing_modes)}\n"
+
         extra_modes = user_modes - compatible_modes
         if extra_modes:
-            print(
-                f"\nYou selected extra modes that are not compatible: "
-                f"{', '.join(extra_modes)}",
-            )
+            output += "\nYou selected extra modes that are not compatible: "
+            output += f"{', '.join(extra_modes)}\n"
+
+    return output
 
 
 if __name__ == "__main__":

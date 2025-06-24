@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from enums import Degree
-from main import generate_chord
+from main import compare_modes, generate_chord
 from modes import SCALES, find_compatible_scale
 
 
@@ -295,53 +294,14 @@ class CagedTrainer(tk.Tk):
                 button click. Defaults to None.
 
         """
-        user_modes = set()
+        user_modes: set[str] = set()
         for answer_set in self.answer_sets:
             for answer in answer_set.get_selected():
                 user_modes.add(answer)
 
         compatible_modes = find_compatible_scale(self.chord_degrees)
 
-        self.generate_results(user_modes, compatible_modes)
-
-    def generate_results(
-        self,
-        user_modes: set[list[Degree]],
-        compatible_modes: set[list[Degree]],
-    ) -> None:
-        """Generate a summary of the user's performance.
-
-        This method compares the modes selected by the user with the set of compatible
-        modes derived from the current chord degrees. It constructs a message that
-        summarises the user's input, indicating whether they found all compatible modes,
-        missed any, or selected extra modes that are not compatible.
-        It then updates the results display in the GUI.
-
-        Args:
-            user_modes : set[list[Degree]]
-                The set of modes selected or entered by the user, where each mode is
-                represented as a list of Degree objects.
-            compatible_modes : set[list[Degree]]
-                The set of all modes that are considered compatible, where each mode is
-                represented as a list of Degree objects.
-
-        """
-        output = ""
-        if user_modes:
-            output += f"\nYou entered the following modes: {', '.join(user_modes)}\n"
-        if user_modes == compatible_modes:
-            output += "\nYou found all compatible modes!"
-        else:
-            missing_modes = compatible_modes - user_modes
-            if missing_modes:
-                output += "\nYou missed the following compatible modes: "
-                output += f"{', '.join(missing_modes)}\n"
-
-            extra_modes = user_modes - compatible_modes
-            if extra_modes:
-                output += "\nYou selected extra modes that are not compatible: "
-                output += f"{', '.join(extra_modes)}\n"
-
+        output = compare_modes(user_modes, compatible_modes)
         self.results.set(output)
 
 
