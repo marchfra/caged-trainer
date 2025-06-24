@@ -24,7 +24,7 @@ jobs:
         run: pip install "pyinstaller>=6.0.0"
 
       - name: Build universal2 app
-        run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer src/__main__.py --distpath dist/universal2
+        run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer src/main.py --distpath dist/universal2
 
       - name: Upload universal2 binary
         uses: actions/upload-artifact@v4
