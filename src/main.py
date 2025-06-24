@@ -65,7 +65,8 @@ def get_user_input() -> set[str]:
 
 def compare_modes(user_modes: set[str], compatible_modes: set[str]) -> None:
     """Compare user modes with compatible modes and print results."""
-    print(f"\nYou entered the following modes: {', '.join(user_modes)}")
+    if user_modes:
+        print(f"\nYou entered the following modes: {', '.join(user_modes)}")
     if user_modes == compatible_modes:
         print("\nYou found all compatible modes!")
     else:
