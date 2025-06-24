@@ -52,7 +52,7 @@ Per eseguire l'applicazione dal codice sorgente hai bisogno di un'installazione 
 
 ### File binario
 
-Per avviare l'app, è sufficiente fare doppio clic su di essa. Se stai usando la versione a interfaccia testuale (file col suffisso `_cli`) si aprirà una finestra del Terminale; è normale, l'applicazione viene eseguita all'interno del Terminale.
+Per avviare l'app, è sufficiente fare doppio clic su di essa. Se stai usando la versione a interfaccia testuale (file col suffisso `-cli`) si aprirà una finestra del Terminale; è normale, l'applicazione viene eseguita all'interno del Terminale.
 
 ### Codice sorgente
 

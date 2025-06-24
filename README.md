@@ -54,7 +54,7 @@ You will need a Python installation in order to run the application from the sou
 
 ### Binary
 
-To launch the app, just double click on it. If you are running the `_cli` version of the app, a Terminal window will open; this is normal, as the application runs inside the Terminal.
+To launch the app, just double click on it. If you are running the `-cli` version of the app, a Terminal window will open; this is normal, as the application runs inside the Terminal.
 
 ### Source code
 

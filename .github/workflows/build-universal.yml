@@ -23,8 +23,11 @@ jobs:
       - name: Install PyInstaller 6.0.0+ (for universal2 build)
         run: pip install "pyinstaller>=6.0.0"
 
-      - name: Build universal2 app
-        run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer src/main.py --distpath dist/universal2
+      - name: Build universal2 app (CLI version)
+        run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer-cli src/main.py --distpath dist/universal2
+
+      - name: Build universal2 app (GUI version)
+        run: pyinstaller --onefile --target-architecture=universal2 --name caged-trainer src/gui.py --distpath dist/universal2
 
       - name: Upload universal2 binary
         uses: actions/upload-artifact@v4
