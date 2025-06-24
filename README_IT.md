@@ -11,6 +11,8 @@ Genera un accordo e verifica se l'elenco di modi forniti dall'utente contiene mo
     - [File binario](#file-binario-1)
     - [Codice sorgente](#codice-sorgente-1)
 - [Utilizzo](#utilizzo)
+    - [Interfaccia grafica](#interfaccia-grafica)
+    - [Interfaccia testuale](#interfaccia-testuale)
 
 ## Installazione
 
@@ -50,14 +52,20 @@ Per eseguire l'applicazione dal codice sorgente hai bisogno di un'installazione 
 
 ### File binario
 
-Per avviare l'app, è sufficiente fare doppio clic su di essa. Si aprirà una finestra del Terminale; è normale, l'applicazione viene eseguita all'interno del Terminale.
+Per avviare l'app, è sufficiente fare doppio clic su di essa. Se stai usando la versione a interfaccia testuale (file col suffisso `_cli`) si aprirà una finestra del Terminale; è normale, l'applicazione viene eseguita all'interno del Terminale.
 
 ### Codice sorgente
 
 **Usando `uv` (consigliato)**: se hai `uv` installato, esegui l'applicazione con
 
 ```shell
-uv run main.py
+uv run src/gui.py
+```
+
+oppure, se vuoi usare l'interfaccia testuale,
+
+```shell
+uv run src/main.py
 ```
 
 Se non conosci `uv`, puoi saperne di più [qui](https://github.com/astral-sh/uv), oppure semplicemente usare il comando `python3` come mostrato sotto.
@@ -65,12 +73,28 @@ Se non conosci `uv`, puoi saperne di più [qui](https://github.com/astral-sh/uv)
 **Usando python**: esegui l'applicazione con
 
 ```shell
-python3 main.py
+python3 src/gui.py
+```
+
+oppure, se vuoi usare l'interfaccia testuale,
+
+```shell
+python3 src/main.py
 ```
 
 ## Utilizzo
 
-Una volta avviata l'app, ti verrà mostrato un accordo insieme a una forma dell'accordo.
+### Interfaccia grafica
+
+Una volta avviata l'applicazione, ti verrà mostrato un accordo insieme a una forma dell'accordo.
+
+Sotto, troverai quattro sezioni, una per ciascuna scala. All'interno di ogni sezione ci sono dei checkbox per ciascun modo generato da quella scala; clicca sul checkbox se pensi che quel modo possa essere armonizzato dall'accordo visualizzato.
+
+Quando hai finito, premi il pulsante "Check" (oppure premi Invio) per ottenere la risposta corretta e vedere come te la sei cavata. Per ottenere una nuova domanda, premi il pulsante "New chord" (scorciatoia da tastiera: n).
+
+### Interfaccia testuale
+
+Una volta avviata l'applicazione, ti verrà mostrato un accordo insieme a una forma dell'accordo.
 
 Successivamente verrà mostrato un elenco di modi derivati dalla scala maggiore. Per selezionare i modi che l'accordo può armonizzare, inserisci il/i numero/i separati da uno spazio. Quando hai finito, premi Invio. Se pensi che non ci siano modi che l'accordo può armonizzare, premi semplicemente Invio.
 
