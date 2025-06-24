@@ -1,6 +1,7 @@
+from custom_types import IntervalStructure
 from enums import Degree
 
-MAJOR: dict[str, list[Degree]] = {
+MAJOR: IntervalStructure = {
     "Ionian": [
         Degree.R,
         Degree.M9,
@@ -66,7 +67,7 @@ MAJOR: dict[str, list[Degree]] = {
     ],
 }
 
-HARMONIC_MINOR: dict[str, list[Degree]] = {
+HARMONIC_MINOR: IntervalStructure = {
     "Harmonic Minor": [
         Degree.R,
         Degree.M9,
@@ -132,7 +133,7 @@ HARMONIC_MINOR: dict[str, list[Degree]] = {
     ],
 }
 
-MELODIC_MINOR: dict[str, list[Degree]] = {
+MELODIC_MINOR: IntervalStructure = {
     "Melodic Minor": [
         Degree.R,
         Degree.M9,
@@ -198,7 +199,7 @@ MELODIC_MINOR: dict[str, list[Degree]] = {
     ],
 }
 
-SYMMETRIC_SCALES: dict[str, list[Degree]] = {
+SYMMETRIC_SCALES: IntervalStructure = {
     "Diminished (Half-Whole)": [
         Degree.R,
         Degree.m9,
@@ -229,26 +230,26 @@ SYMMETRIC_SCALES: dict[str, list[Degree]] = {
     ],
 }
 
-SCALES: list[dict[str, list[Degree]]] = [
-    MAJOR,
-    HARMONIC_MINOR,
-    MELODIC_MINOR,
-    SYMMETRIC_SCALES,
-]
+SCALES: dict[str, IntervalStructure] = {
+    "Major scale": MAJOR,
+    "Harmonic minor scale": HARMONIC_MINOR,
+    "Melodic minor scale": MELODIC_MINOR,
+    "Symmetric scales": SYMMETRIC_SCALES,
+}
 
 
 def find_compatible_scale(chord_degrees: list[Degree]) -> set[str]:
     """Find a compatible scale for the given chord degrees."""
-    compatible_scales: dict[str, list[Degree]] = {}
-    for scale in SCALES:
+    compatible_scales: IntervalStructure = {}
+    for scale in SCALES.values():
         for mode, degrees in scale.items():
             if all(degree in degrees for degree in chord_degrees):
-                compatible_scales[mode] = degrees  # noqa: PERF403
+                compatible_scales[mode] = degrees
     return set(compatible_scales.keys())
 
 
 def main() -> None:
-    for scale in SCALES:
+    for scale in SCALES.values():
         longest_mode_name = max(scale.keys(), key=len)
         for mode, degrees in scale.items():
             print(

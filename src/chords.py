@@ -1,6 +1,7 @@
+from custom_types import IntervalStructure
 from enums import Degree
 
-CHORD_DEGREE_MAP: dict[str, list[Degree]] = {
+CHORD_DEGREE_MAP: IntervalStructure = {
     # Triadi
     "maj [triad]": [Degree.R, Degree.M3, Degree.P5],
     "min [triad]": [Degree.R, Degree.m3, Degree.P5],
