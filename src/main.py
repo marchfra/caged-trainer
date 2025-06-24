@@ -1,9 +1,13 @@
 import random
 import sys
+from typing import TYPE_CHECKING
 
 from chords import CHORD_DEGREE_MAP
 from enums import Degree, Note, Shape
 from modes import SCALES, find_compatible_scale
+
+if TYPE_CHECKING:
+    from custom_types import IntervalStructure
 
 
 def main() -> None:
@@ -38,9 +42,9 @@ def get_nth_key_value_pair(d: dict, n: int) -> tuple[str, list]:
 
 def get_user_input() -> set[str]:
     """Get user input for modes."""
-    user_modes: dict[str, list[Degree]] = {}
-    for scale in SCALES:
-        print()
+    user_modes: IntervalStructure = {}
+    for name, scale in SCALES.items():
+        print(f"\n{name}:")
         # Print the modes available in the scale
         for i, mode in enumerate(scale):
             print(f"({i + 1}) {mode}")
