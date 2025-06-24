@@ -13,36 +13,40 @@ def main() -> None:
     app.mainloop()
 
 
-class AnswerSet(ttk.Frame):
-    """A custom ttk.Frame widget that displays a set of checkboxes with a title.
+class AnswerSet(ttk.Labelframe):
+    """A custom ttk.Labelframe widget for displaying a set of checkable options.
+
+    The AnswerSet widget presents a labeled frame containing a row of checkbuttons,
+    each corresponding to an option provided at initialization. It manages the state
+    of each option using tkinter BooleanVar instances, allowing for easy retrieval
+    of selected options and programmatic deselection.
 
     Parameters
     ----------
         parent : tk.Tk
-            The parent widget.
+                The parent widget to which this labelframe will be attached
         title : str
-            The title displayed above the checkboxes.
+                The title displayed on the labelframe.
         options : list[str]
-            The list of option labels for the checkboxes.
+                The list of option strings to display as checkbuttons.
 
     Attributes
     ----------
         title : str
-            The title displayed above the checkboxes.
+                The title displayed on the labelframe.
         options : list[str]
-            The list of option labels for the checkboxes.
-        vars : list[tuple[str, tk.BooleanVar]]
-            List of tuples containing option labels
-            and their associated BooleanVar.
+                The list of option strings to display as checkbuttons.
+        vars : dict[str, tk.BooleanVar]
+                Mapping of option strings to their associated BooleanVar.
 
     Methods
     -------
         create_widgets()
-            Initializes and places the title label and checkboxes.
+            Creates and places checkbuttons for each option.
         get_selected() -> list[str]
-            Returns a list of selected option labels.
+            Returns a list of currently selected options.
         deselect_all()
-            Deselects all checkboxes.
+            Deselects all options.
 
     """
 
@@ -66,7 +70,7 @@ class AnswerSet(ttk.Frame):
                 Dictionary mapping option strings to their associated BooleanVar.
 
         """
-        super().__init__(parent, borderwidth=1, relief="solid")
+        super().__init__(parent, text=title, labelanchor="n")
         self.title = title
         self.options = options
         self.vars: dict[str, tk.BooleanVar] = {}
@@ -78,20 +82,12 @@ class AnswerSet(ttk.Frame):
         self.rowconfigure(1, weight=1)
 
     def create_widgets(self) -> None:
-        """Create and arrange the widgets for the GUI component.
+        """Create and place a checkbutton widget for each option in self.options.
 
-        This method adds a label displaying the title at the top of the widget,
-        followed by a row of checkbuttons for each option in `self.options`.
-        Each checkbutton is associated with a BooleanVar, and both the option
-        and its variable are appended to `self.vars` for later access.
-
+        For each option, a BooleanVar is created and associated with a ttk.Checkbutton.
+        The checkbuttons are arranged in a single row with padding, and the BooleanVar
+        for each option is stored in self.vars for later access.
         """
-        ttk.Label(self, text=self.title).grid(
-            column=0,
-            row=0,
-            columnspan=len(self.options),
-        )
-
         for i, option in enumerate(self.options):
             var = tk.BooleanVar()
             chk = ttk.Checkbutton(self, text=option, variable=var)
