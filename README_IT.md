@@ -52,7 +52,7 @@ Per eseguire l'applicazione dal codice sorgente hai bisogno di un'installazione 
 
 ### File binario
 
-Per avviare l'app, è sufficiente fare doppio clic su di essa. Se stai usando la versione a interfaccia testuale (file col suffisso `-cli`) si aprirà una finestra del Terminale; è normale, l'applicazione viene eseguita all'interno del Terminale.
+Per avviare l'app, è sufficiente fare doppio clic su di essa. Si aprirà una finestra del Terminale; ciò è normale: se stai usando la versione `-cli` l'applicazione viene eseguita all'interno del Terminale, altrimenti ha comunque bisogno del Terminale aperto per essere eseguita.
 
 ### Codice sorgente
 
@@ -90,7 +90,17 @@ Una volta avviata l'applicazione, ti verrà mostrato un accordo insieme a una fo
 
 Sotto, troverai quattro sezioni, una per ciascuna scala. All'interno di ogni sezione ci sono dei checkbox per ciascun modo generato da quella scala; clicca sul checkbox se pensi che quel modo possa essere armonizzato dall'accordo visualizzato.
 
-Quando hai finito, premi il pulsante "Check" (oppure premi Invio) per ottenere la risposta corretta e vedere come te la sei cavata. Per ottenere una nuova domanda, premi il pulsante "New chord" (scorciatoia da tastiera: n).
+Quando hai finito, premi il pulsante "Check" per ottenere la risposta corretta e vedere come te la sei cavata. Per ottenere una nuova domanda, premi il pulsante "New chord".
+
+#### Shortcut da tastiera
+
+| Shortcut                  | Azione                                      |
+|---------------------------|---------------------------------------------|
+| <kbd>Enter</kbd>          | Verifica le risposte                        |
+| <kbd>N</kbd>              | Nuovo accordo                               |
+| <kbd>1</kbd>-<kbd>4</kbd> | Seleziona il primo checkbox della scala 1-4 |
+| <kbd>Tab</kbd>            | Muoviti al prossimo checkbox                |
+| <kbd>Space</kbd>          | Attiva/disattiva il checkbox selezionato    |
 
 ### Interfaccia testuale
 
