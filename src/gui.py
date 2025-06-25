@@ -7,8 +7,8 @@ from modes import SCALES, find_compatible_scale
 
 
 def main() -> None:
-    min_width = 1000
-    min_height = 550
+    min_width = 900
+    min_height = 556
     app = CagedTrainer(min_width, min_height)
     app.mainloop()
 
