@@ -74,12 +74,9 @@ class AnswerSet(ttk.Labelframe):
         self.title = title
         self.options = options
         self.vars: dict[str, tk.BooleanVar] = {}
-        self.create_widgets()
+        self.checkbuttons: list[ttk.Checkbutton] = []
 
-        for i in range(len(self.options)):
-            self.columnconfigure(i, weight=1)
-        self.rowconfigure(0, weight=1)
-        self.rowconfigure(1, weight=1)
+        self.create_widgets()
 
     def create_widgets(self) -> None:
         """Create and place a checkbutton widget for each option in self.options.
@@ -93,6 +90,20 @@ class AnswerSet(ttk.Labelframe):
             chk = ttk.Checkbutton(self, text=option, variable=var)
             chk.grid(column=0, row=i, padx=10, sticky="w")
             self.vars[option] = var
+            self.checkbuttons.append(chk)
+
+            self.rowconfigure(i, weight=1)
+
+        self.columnconfigure(0, weight=1)
+
+    def focus_first_child(self, _event: tk.Event | None = None) -> None:
+        """Set focus to the first checkbutton in the answer set.
+
+        This method is useful for keyboard navigation, allowing the user to quickly
+        start interacting with the first option in the set.
+        """
+        if self.checkbuttons:
+            self.checkbuttons[0].focus_set()
 
     def get_selected(self) -> list[str]:
         """Return a list of selected options based on the state of associated variables.
@@ -249,6 +260,7 @@ class CagedTrainer(tk.Tk):
             )
             answer_set.grid(column=i, row=0, sticky="nsew", padx=10, pady=10)
             self.answer_sets.append(answer_set)
+            self.bind_all(f"<Key-{i + 1}>", answer_set.focus_first_child)
 
         frm_buttons = ttk.Frame(content)
         btn_check = ttk.Button(
