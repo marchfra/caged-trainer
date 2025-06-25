@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkfont
 from tkinter import ttk
 
 from main import compare_modes, generate_chord
@@ -69,7 +70,7 @@ class AnswerSet(ttk.Labelframe):
                 Dictionary mapping option strings to their associated BooleanVar.
 
         """
-        super().__init__(parent, text=title, labelanchor="n")
+        super().__init__(parent, text=title, labelanchor="nw")
         self.title = title
         self.options = options
         self.vars: dict[str, tk.BooleanVar] = {}
@@ -90,7 +91,7 @@ class AnswerSet(ttk.Labelframe):
         for i, option in enumerate(self.options):
             var = tk.BooleanVar()
             chk = ttk.Checkbutton(self, text=option, variable=var)
-            chk.grid(column=i, row=1, padx=10)
+            chk.grid(column=0, row=i, padx=10, sticky="w")
             self.vars[option] = var
 
     def get_selected(self) -> list[str]:
@@ -174,6 +175,24 @@ class CagedTrainer(tk.Tk):
         super().__init__()
         self.title("CAGED Trainer")
 
+        # Style configuration
+        style = ttk.Style(self)
+
+        # Fonts
+        default_font = tkfont.nametofont(style.lookup("TLabel", "font"))
+        title_font = default_font.copy()
+        title_font.configure(size=22, weight="bold")
+        style.configure("Title.TLabel", font=title_font)
+        subtitle_font = default_font.copy()
+        subtitle_font.configure(size=14, weight="bold")
+        style.configure("TLabelframe.Label", font=subtitle_font)
+        body_font = default_font.copy()
+        body_font.configure(size=14, weight="normal")
+        style.configure("TCheckbutton.Label", font=body_font)
+        results_font = default_font.copy()
+        results_font.configure(size=16, weight="normal")
+        style.configure("Results.TLabel", font=results_font)
+
         self.geometry(f"{min_width}x{min_height}")
         self.minsize(min_width, min_height)
         self.configure(padx=16, pady=16)
@@ -209,21 +228,26 @@ class CagedTrainer(tk.Tk):
         content.grid(column=0, row=0, sticky="nsew")
         content.columnconfigure(0, weight=1)
         content.rowconfigure(0, weight=2)
-        for row in range(1, 6):
+        for row in range(1, 3):
             content.rowconfigure(row, weight=1)
-        content.rowconfigure(6, weight=1, minsize=125)
+        content.rowconfigure(3, weight=1, minsize=125)
 
         lbl_question = ttk.Label(
             content,
             textvariable=self.question,
             anchor="center",
-            background="black",
+            style="Title.TLabel",
         )
         lbl_question.grid(column=0, row=0)
 
+        frm_answers = ttk.Frame(content)
         for i, (name, scale) in enumerate(SCALES.items()):
-            answer_set = AnswerSet(content, title=name, options=scale.keys())
-            answer_set.grid(column=0, row=i + 1, sticky="nsew", padx=10, pady=10)
+            answer_set = AnswerSet(
+                frm_answers,
+                title=f"{i + 1}) {name}",
+                options=scale.keys(),
+            )
+            answer_set.grid(column=i, row=0, sticky="nsew", padx=10, pady=10)
             self.answer_sets.append(answer_set)
 
         frm_buttons = ttk.Frame(content)
@@ -231,6 +255,7 @@ class CagedTrainer(tk.Tk):
             frm_buttons,
             text="Check",
             command=self.check_answer,
+            default="active",
         )
         btn_new = ttk.Button(
             frm_buttons,
@@ -241,12 +266,21 @@ class CagedTrainer(tk.Tk):
         btn_new.grid(column=1, row=0)
 
         frm_results = ttk.Frame(content, borderwidth=2, relief="raised")
-        lbl_result = ttk.Label(frm_results, textvariable=self.results, wraplength=800)
+        lbl_result = ttk.Label(
+            frm_results,
+            textvariable=self.results,
+            wraplength=800,
+            style="Results.TLabel",
+        )
         lbl_result.grid(column=0, row=0)
 
-        frm_buttons.grid(column=0, row=5, sticky="nsew")
-        frm_results.grid(column=0, row=6, sticky="nsew")
+        frm_answers.grid(column=0, row=1, sticky="nsew")
+        frm_buttons.grid(column=0, row=2, sticky="nsew")
+        frm_results.grid(column=0, row=3, sticky="nsew")
 
+        for i in range(len(self.answer_sets)):
+            frm_answers.columnconfigure(i, weight=1, minsize=200)
+        frm_answers.rowconfigure(0, weight=1)
         frm_buttons.columnconfigure(0, weight=1)
         frm_buttons.columnconfigure(1, weight=1)
         frm_buttons.rowconfigure(0, weight=1)
@@ -279,7 +313,7 @@ class CagedTrainer(tk.Tk):
         self.reset_interface()
 
         note, chord_name, self.chord_degrees, shape = generate_chord()
-        self.question.set(f"{note:2} {chord_name} in {shape} shape")
+        self.question.set(f"{note}{chord_name} in {shape} shape")
 
     def check_answer(self, _event: tk.Event | None = None) -> None:
         """Handle the answer checking process when triggered by a user event.

@@ -22,7 +22,7 @@ def main() -> None:
     print(output)
 
 
-def generate_chord() -> tuple[Note, str, list[Degree], Shape]:
+def generate_chord() -> tuple[str, str, list[Degree], Shape]:
     """Generate a random chord with its note, name, and shape."""
     chord_name = random.choice(list(CHORD_DEGREE_MAP.keys()))
     chord_degrees = CHORD_DEGREE_MAP[chord_name]
