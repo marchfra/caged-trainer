@@ -1,4 +1,4 @@
-name: Build macOS Universal2 Binary with PyInstaller
+name: Build Binary with PyInstaller
 
 on:
   push:
@@ -34,3 +34,31 @@ jobs:
         with:
           name: macos-universal2-app
           path: dist/universal2/
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Ensure pip, wheel, setuptools are up to date
+        run: python -m pip install --upgrade pip setuptools wheel
+
+      - name: Install PyInstaller
+        run: pip install "pyinstaller>=6.0.0"
+
+      - name: Build Windows exe (CLI version)
+        run: pyinstaller --onefile --name caged-trainer-cli src/main.py --distpath dist/windows
+
+      - name: Build Windows exe (GUI version)
+        run: pyinstaller --onefile --name caged-trainer src/gui.py --distpath dist/windows
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-ex
+          path: dist/windows/
