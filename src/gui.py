@@ -16,14 +16,14 @@ def main() -> None:
 class AnswerSet(ttk.Labelframe):
     """A custom ttk.Labelframe widget for displaying a set of checkable options.
 
-    The AnswerSet widget presents a labeled frame containing a row of checkbuttons,
+    The AnswerSet widget presents a labeled frame containing a number of checkbuttons,
     each corresponding to an option provided at initialization. It manages the state
     of each option using tkinter BooleanVar instances, allowing for easy retrieval
     of selected options and programmatic deselection.
 
     Parameters
     ----------
-        parent : tk.Tk
+        parent : ttk.Widget
                 The parent widget to which this labelframe will be attached
         title : str
                 The title displayed on the labelframe.
@@ -50,26 +50,8 @@ class AnswerSet(ttk.Labelframe):
 
     """
 
-    def __init__(self, parent: tk.Tk, title: str, options: list[str]) -> None:
-        """Initialize the custom widget with a title and a list of options.
-
-        Args:
-            parent : tk.Tk
-                The parent Tkinter widget.
-            title : str
-                The title for the widget.
-            options : list[str]
-                A list of option strings to display in the widget.
-
-        Attributes:
-            title : str
-                The title of the widget.
-            options : list[str]
-                The list of option strings.
-            vars : dict[str, tk.BooleanVar]
-                Dictionary mapping option strings to their associated BooleanVar.
-
-        """
+    def __init__(self, parent: ttk.Widget, title: str, options: list[str]) -> None:
+        """Initialize the custom widget with a title and a list of options."""
         super().__init__(parent, text=title, labelanchor="nw")
         self.title = title
         self.options = options
@@ -82,8 +64,8 @@ class AnswerSet(ttk.Labelframe):
         """Create and place a checkbutton widget for each option in self.options.
 
         For each option, a BooleanVar is created and associated with a ttk.Checkbutton.
-        The checkbuttons are arranged in a single row with padding, and the BooleanVar
-        for each option is stored in self.vars for later access.
+        The checkbuttons are arranged in a single column with padding, and the
+        BooleanVar for each option is stored in self.vars for later access.
         """
         for i, option in enumerate(self.options):
             var = tk.BooleanVar()
@@ -97,23 +79,15 @@ class AnswerSet(ttk.Labelframe):
         self.columnconfigure(0, weight=1)
 
     def focus_first_child(self, _event: tk.Event | None = None) -> None:
-        """Set focus to the first checkbutton in the answer set.
-
-        This method is useful for keyboard navigation, allowing the user to quickly
-        start interacting with the first option in the set.
-        """
+        """Set focus to the first checkbutton in the answer set."""
         if self.checkbuttons:
             self.checkbuttons[0].focus_set()
 
     def get_selected(self) -> list[str]:
         """Return a list of selected options based on the state of associated variables.
 
-        Iterates through the pairs of options and their corresponding tkinter variable
-        objects, appending the option to the result list if its variable is set (i.e.,
-        evaluates to True).
-
         Returns:
-            list[str]: A list of option strings that are currently selected.
+            A list of answers that are currently selected.
 
         """
         selected: list[str] = []
@@ -162,48 +136,47 @@ class CagedTrainer(tk.Tk):
         Generates a new chord question.
     check_answer(_event=None)
         Checks the user's selected answers against compatible modes.
-    generate_results(user_modes, compatible_modes)
-        Displays feedback based on user input.
 
     """
 
-    def __init__(self, min_width: int = 1000, min_height: int = 550) -> None:
-        """Initialize the main application window for the CAGED Trainer.
+    def __init__(self, min_width: int, min_height: int) -> None:
+        """Initialize the main application window with specified minimum dimensions.
 
-        Sets the window title, geometry, minimum size, and padding. Initializes
-        variables for the current question, answer sets, and results. Configures the
-        main grid layout, creates the necessary widgets, and generates the first
-        question. Binds the Return key to the answer checking method and the 'n' key to
-        generate a new question.
-
-        Args:
-            min_width : int, optional
-                The minimum width of the window. Defaults to 1000.
-            min_height : int, optional
-                The minimum height of the window. Defaults to 550.
-
+        Initializes window title, style, variables, event bindings, and widgets,
+        then generates a new question for the user.
         """
         super().__init__()
         self.title("CAGED Trainer")
 
-        # Style configuration
-        style = ttk.Style(self)
+        self._init_window(min_width, min_height)
+        self._init_variables()
+        self._init_bindings()
 
-        # Fonts
+        self._init_style()
+        self.create_widgets()
+
+        self.new_question()
+
+    def _init_style(self) -> None:
+        """Initialize and configure custom ttk styles and fonts for the GUI."""
+        style = ttk.Style()
+
         default_font = tkfont.nametofont(style.lookup("TLabel", "font"))
-        title_font = default_font.copy()
-        title_font.configure(size=22, weight="bold")
-        style.configure("Title.TLabel", font=title_font)
-        subtitle_font = default_font.copy()
-        subtitle_font.configure(size=14, weight="bold")
-        style.configure("TLabelframe.Label", font=subtitle_font)
-        body_font = default_font.copy()
-        body_font.configure(size=14, weight="normal")
-        style.configure("TCheckbutton.Label", font=body_font)
-        results_font = default_font.copy()
-        results_font.configure(size=16, weight="normal")
-        style.configure("Results.TLabel", font=results_font)
+        self.title_font = default_font.copy()
+        self.title_font.configure(size=22, weight="bold")
+        style.configure("Title.TLabel", font=self.title_font)
+        self.subtitle_font = default_font.copy()
+        self.subtitle_font.configure(size=14, weight="bold")
+        style.configure("TLabelframe.Label", font=self.subtitle_font)
+        self.body_font = default_font.copy()
+        self.body_font.configure(size=14, weight="normal")
+        style.configure("TCheckbutton.Label", font=self.body_font)
+        self.results_font = default_font.copy()
+        self.results_font.configure(size=16, weight="normal")
+        style.configure("Results.TLabel", font=self.results_font)
 
+    def _init_window(self, min_width: int, min_height: int) -> None:
+        """Initialize the main window with specified minimum width and height."""
         self.geometry(f"{min_width}x{min_height}")
         self.minsize(min_width, min_height)
         self.configure(padx=16, pady=16)
@@ -211,23 +184,19 @@ class CagedTrainer(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        self.question = tk.StringVar(value="Question")
+    def _init_variables(self) -> None:
+        """Initialize instance variables for question, answer sets, and results."""
+        self.question = tk.StringVar()
         self.answer_sets: list[AnswerSet] = []
         self.results = tk.StringVar()
 
-        self.create_widgets()
-        self.new_question()
-
+    def _init_bindings(self) -> None:
+        """Initialize key bindings for the GUI."""
         self.bind("<Return>", self.check_answer)
         self.bind("<n>", self.new_question)
 
     def create_widgets(self) -> None:
         """Create and configure all widgets for the application's main GUI.
-
-        This method sets up the main content frame, with a question label, answer sets
-        for each scale, control buttons ("Check" and "New chord"), and a results display
-        area. It also configures the grid layout and weight distribution for responsive
-        resizing.
 
         Widgets created:
             - Question label (displays the current question)
@@ -237,32 +206,56 @@ class CagedTrainer(tk.Tk):
         """
         content = ttk.Frame(self)
         content.grid(column=0, row=0, sticky="nsew")
+        self._configure_content_grid(content)
+
+        self._create_question_label(content)
+        self._create_answer_sets(content)
+        self._create_buttons(content)
+        self._create_results_frame(content)
+
+    def _configure_content_grid(self, content: ttk.Frame) -> None:
+        """Configure the grid layout for the given ttk.Frame `content`."""
         content.columnconfigure(0, weight=1)
         content.rowconfigure(0, weight=2)
         for row in range(1, 3):
             content.rowconfigure(row, weight=1)
         content.rowconfigure(3, weight=1, minsize=125)
 
+    def _create_question_label(self, parent: ttk.Frame) -> None:
+        """Create and place a question label widget inside the given ttk.Frame."""
         lbl_question = ttk.Label(
-            content,
+            parent,
             textvariable=self.question,
             anchor="center",
             style="Title.TLabel",
         )
         lbl_question.grid(column=0, row=0)
 
-        frm_answers = ttk.Frame(content)
+    def _create_answer_sets(self, parent: ttk.Frame) -> None:
+        """Create a set of AnswerSet widgets as children of the given parent frame.
+
+        This method iterates over the predefined SCALES dictionary, creating an
+        AnswerSet for each scale. The AnswerSets are arranged in a grid layout within
+        the parent frame. Keybindings are set up to allow quick access to each AnswerSet
+        using the number keys (1 through N).
+        """
+        frm_answers = ttk.Frame(parent)
+        frm_answers.grid(column=0, row=1, sticky="nsew")
+
         for i, (name, scale) in enumerate(SCALES.items()):
-            answer_set = AnswerSet(
-                frm_answers,
-                title=f"{i + 1}) {name}",
-                options=scale.keys(),
-            )
+            answer_set = AnswerSet(frm_answers, title=name, options=scale.keys())
             answer_set.grid(column=i, row=0, sticky="nsew", padx=10, pady=10)
             self.answer_sets.append(answer_set)
             self.bind_all(f"<Key-{i + 1}>", answer_set.focus_first_child)
 
-        frm_buttons = ttk.Frame(content)
+        for i in range(len(self.answer_sets)):
+            frm_answers.columnconfigure(i, weight=1, minsize=200)
+        frm_answers.rowconfigure(0, weight=1)
+
+    def _create_buttons(self, parent: ttk.Frame) -> None:
+        """Create and configure the button widgets for the parent frame."""
+        frm_buttons = ttk.Frame(parent)
+        frm_buttons.grid(column=0, row=2, sticky="nsew")
         btn_check = ttk.Button(
             frm_buttons,
             text="Check",
@@ -277,7 +270,14 @@ class CagedTrainer(tk.Tk):
         btn_check.grid(column=0, row=0)
         btn_new.grid(column=1, row=0)
 
-        frm_results = ttk.Frame(content, borderwidth=2, relief="raised")
+        frm_buttons.columnconfigure(0, weight=1)
+        frm_buttons.columnconfigure(1, weight=1)
+        frm_buttons.rowconfigure(0, weight=1)
+
+    def _create_results_frame(self, parent: ttk.Frame) -> None:
+        """Create and configure the results frame within the given parent frame."""
+        frm_results = ttk.Frame(parent, borderwidth=2, relief="raised")
+        frm_results.grid(column=0, row=3, sticky="nsew")
         lbl_result = ttk.Label(
             frm_results,
             textvariable=self.results,
@@ -286,42 +286,17 @@ class CagedTrainer(tk.Tk):
         )
         lbl_result.grid(column=0, row=0)
 
-        frm_answers.grid(column=0, row=1, sticky="nsew")
-        frm_buttons.grid(column=0, row=2, sticky="nsew")
-        frm_results.grid(column=0, row=3, sticky="nsew")
-
-        for i in range(len(self.answer_sets)):
-            frm_answers.columnconfigure(i, weight=1, minsize=200)
-        frm_answers.rowconfigure(0, weight=1)
-        frm_buttons.columnconfigure(0, weight=1)
-        frm_buttons.columnconfigure(1, weight=1)
-        frm_buttons.rowconfigure(0, weight=1)
-
         frm_results.columnconfigure(0, weight=1)
         frm_results.rowconfigure(0, weight=1)
 
     def reset_interface(self) -> None:
-        """Reset the user interface to its initial state.
-
-        This method deselects all answers in each answer set and clears the results
-        display.
-        """
+        """Reset the user interface to its initial state."""
         for answer_set in self.answer_sets:
             answer_set.deselect_all()
         self.results.set("")
 
     def new_question(self, _event: tk.Event | None = None) -> None:
-        """Generate a new chord question for the user interface.
-
-        This method resets the current interface state, generates a new chord question
-        using the `generate_chord` function, and updates the question label with the
-        new chord information (note, chord name, and shape).
-
-        Args:
-            _event : tk.Event | None, optional
-                The event object from a Tkinter event binding. Defaults to None.
-
-        """
+        """Generate a new chord question."""
         self.reset_interface()
 
         note, chord_name, self.chord_degrees, shape = generate_chord()
@@ -333,12 +308,6 @@ class CagedTrainer(tk.Tk):
         Collects the user's selected answers from all answer sets, determines the set of
         compatible modes based on the current chord degrees, and generates the results
         for display.
-
-        Args:
-            _event : tk.Event | None, optional
-                The event that triggered the answer check, typically a key press or
-                button click. Defaults to None.
-
         """
         user_modes: set[str] = set()
         for answer_set in self.answer_sets:
