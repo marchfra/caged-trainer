@@ -28,7 +28,7 @@ jobs:
 
       - name: Build GUI App Bundle with PyInstaller
         run: |
-          py-makespec \
+          pyi-makespec \
             --name caged-trainer \
             --windowed \
             --icon assets/icon.icns \
