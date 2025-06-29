@@ -44,5 +44,7 @@ jobs:
       - name: Upload zipped .app
         uses: actions/upload-artifact@v4
         with:
-          name: caged-trainer-mac-app
-          path: caged-trainer-mac.zip
+          # name: caged-trainer-mac-app
+          # path: caged-trainer-mac.zip
+          name: specfile
+          path: caged-trainer.spec
