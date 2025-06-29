@@ -36,9 +36,9 @@ jobs:
             --osx-bundle-identifier com.marchfra.cagedtrainer \
           src/gui.py
 
-      - name: Zip .app for download
-        run: |
-          ditto -c -k --sequesterRsrc --keepParent dist/appbundle/caged-trainer.app caged-trainer-mac.zip
+      #- name: Zip .app for download
+      #  run: |
+      #    ditto -c -k --sequesterRsrc --keepParent dist/appbundle/caged-trainer.app caged-trainer-mac.zip
 
       - name: Upload zipped .app
         uses: actions/upload-artifact@v4
