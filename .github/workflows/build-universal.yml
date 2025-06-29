@@ -28,13 +28,12 @@ jobs:
 
       - name: Build GUI App Bundle with PyInstaller
         run: |
-          pyinstaller \
+          py-makespec \
             --name caged-trainer \
             --windowed \
             --icon assets/icon.icns \
             --target-architecture universal2 \
             --osx-bundle-identifier com.marchfra.cagedtrainer \
-            --plist assets/Info.plist \
             --distpath dist/appbundle
           src/gui.py
 
