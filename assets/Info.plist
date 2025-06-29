@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- The bundle name (user-visible in Finder) -->
+    <key>CFBundleName</key>
+    <string>Caged Trainer</string>
+
+    <!-- Display name -->
+    <key>CFBundleDisplayName</key>
+    <string>Caged Trainer</string>
+
+    <!-- Unique app identifier (must match PyInstaller's osx-bundle-identifier) -->
+    <key>CFBundleIdentifier</key>
+    <string>com.marchfra.cagedtrainer</string>
+
+    <!-- Version numbers -->
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+
+    <!-- Executable name (must match your PyInstaller name option) -->
+    <key>CFBundleExecutable</key>
+    <string>caged-trainer</string>
+
+    <!-- App category (optional but nice to have) -->
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.music</string>
+
+    <!-- Icon file (without .icns extension) -->
+    <key>CFBundleIconFile</key>
+    <string>icon</string>
+
+    <!-- Required for GUI apps -->
+    <key>NSHighResolutionCapable</key>
+    <true/>
+</dict>
+</plist>
