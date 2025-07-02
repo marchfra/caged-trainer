@@ -42,7 +42,7 @@ jobs:
             -c -k \
             --sequesterRsrc \
             --keepParent \
-          dist/appbundle/CAGED\ Trainer.app caged-trainer-mac.zip
+          dist/CAGED\ Trainer.app caged-trainer-mac.zip
 
       - name: Upload zipped .app
         uses: actions/upload-artifact@v4
