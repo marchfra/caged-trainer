@@ -15,8 +15,8 @@ Genera un accordo e verifica se i modi scelti dall'utente sono modi validi che l
 
 ### macOS
 
-1. Scarica il più recente `CAGED Trainer.dmg` dalla pagina [Release](https://github.com/marchfra/caged-trainer/releases).
-2. Apri il file `CAGED Trainer.dmg` e trascina l'app nella tua cartella `Applicazioni`.
+1. Scarica il più recente `CAGEDTrainer.dmg` dalla pagina [Release](https://github.com/marchfra/caged-trainer/releases).
+2. Apri il file `CAGEDTrainer.dmg` e trascina l'app nella tua cartella `Applicazioni`.
 3. **Importante**: siccome l'app non è firmata da uno sviluppatore certificato da Apple, macOS ne bloccherà l'esecuzione la prima volta che la apri.
     Per aprirla comunque:
     - Vai in **Impostazioni di Sistema** &rarr; **Privacy e Sicurezza**.

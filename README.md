@@ -17,8 +17,8 @@ Generate a chord and check if the user-provided list of modes are valid modes th
 
 ### macOS
 
-1. Download the latest `CAGED Trainer.dmg` installer from the [Releases](https://github.com/marchfra/caged-trainer/releases) page.
-2. Open the `CAGED Trainer.dmg` file and drag and drop the app to your `Applications` folder.
+1. Download the latest `CAGEDTrainer.dmg` installer from the [Releases](https://github.com/marchfra/caged-trainer/releases) page.
+2. Open the `CAGEDTrainer.dmg` file and drag and drop the app to your `Applications` folder.
 3. **Important**: since the app is not signed by an Apple-certified developer, macOS will block it on the first launch.
     To open it anyway:
     - Go to **System Settings** &rarr; **Privacy & Security**.
