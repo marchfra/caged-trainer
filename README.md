@@ -2,87 +2,69 @@
 
 *Per una versione italiana delle istruzioni clicca [qui](https://github.com/marchfra/caged-trainer/blob/main/README_IT.md).*
 
-Generate a chord and check if the user-provided list of modes are valid modes that the chord can harmonize.
+Generate a chord and check if the user-provided list of modes are valid modes that the chord can harmonise.
 
 ## Table of Contents
 
 - [Installation](#installation)
-    - [Binary](#binary)
-    - [Source code](#source-code)
-- [Running the app](#running-the-app)
-    - [Binary](#binary-1)
-    - [Source code](#source-code-1)
+    - [macOS](#macos)
+    - [Running from source (macOS / Linux / Windows)](#running-from-source-macos--linux--windows)
 - [Usage](#usage)
     - [GUI version](#gui-version)
     - [CLI version](#cli-version)
 
 ## Installation
 
-### Binary
+### macOS
 
-The compiled binary is only available for MacOS.
+1. Download the latest `CAGED Trainer.dmg` installer from the [Releases](https://github.com/marchfra/caged-trainer/releases) page.
+2. Open the `CAGED Trainer.dmg` file and drag and drop the app to your `Applications` folder.
+3. **Important**: since the app is not signed by an Apple-certified developer, macOS will block it on the first launch.
+    To open it anyway:
+    - Go to **System Settings** &rarr; **Privacy & Security**.
+    - Scroll down to the message saying that the app was blocked.
+    - Click **"Open Anyway"**, then confirm.
 
-To download it, go to the [Releases page](https://github.com/marchfra/caged-trainer/releases) and click on **caged-trainer** (the one with a little cube on its left).
+    After the first manual confirmation, macOS will allow the app to run normally.
 
-To be able to open the application, open Terminal (you can find Terminal in Applications > Utilities, or by writing "Terminal" in Spotlight) and type the following lines, pressing Enter after each one:
+### Running from source (macOS / Linux / Windows)
 
-```shell
-xattr -d com.apple.quarantine '/path/to/caged-trainer'
-```
+If you're not using macOS, or prefer to run the app from source, follow these steps:
 
-This command removes the "quarantine" attribute that macOS adds to files downloaded from the internet. Removing this attribute allows the application to run without macOS security warnings. **Use this command only for files you trust.**
+#### Prerequisites
 
-```shell
-chmod +x '/path/to/caged-trainer'
-```
+- git
+- [Python 3.10+](https://www.python.org/downloads/)
+- [uv](https://github.com/astral-sh/uv) (optional but recommended)
 
-This command gives the file permission to be run as a program (makes it "executable"). Without this permission, trying to run the file will either do nothing or open it in a text editor, showing its raw contents instead of executing it. Use this command if you want to be able to run the file.
+#### Steps
 
-By default the ```/path/to/caged-trainer``` should be ```~/Downloads/caged-trainer```, but if you are unsure of the path to the application you can drag-and-drop the app file in the Terminal window instead of writing its path. This will automatically insert the correct path.
+1. Clone the repository:
 
-You might be asked to enter your password.
+    ```shell
+    git clone https://github.com/marchfra/caged-trainer.git
+    cd caged-trainer
+    ```
 
-You can now move the application file wherever you want it, and even make multiple copies.
+2. Create and activate virtual environment (only if not using uv):
 
-### Source code
+    ```shell
+    python3 -m venv .venv
+    source .venv/bin/activate  # on Windows: .venv\Scripts\activate
+    pip install .
+    ```
 
-You can obtain the compressed source code from the [Releases page](https://github.com/marchfra/caged-trainer/releases).
+3. Run the app:
 
-You will need a Python installation in order to run the application from the source code. If you don't have Python installed, you can download it from [python.org](https://python.org).
+    ```shell
+    uv run src/gui.py  # python3 src/gui.py
+    ```
 
-## Running the app
+    or, to run the app in CLI mode,
 
-### Binary
-
-To launch the app, just double click on it. A Terminal window will open; this is normal: if you're using the `-cli` version, the application runs inside the Terminal, otherwise it still needs to open the Terminal to run.
-
-### Source code
-
-**Using `uv` (recommended)**: if you have `uv` installed, run the application with
-
-```shell
-uv run src/gui.py
-```
-
-or, if you want to use the CLI version of the app,
-
-```shell
-uv run src/main.py
-```
-
-If you are not familiar with `uv`, you can learn more about it [here](https://github.com/astral-sh/uv), or simply use the `python3` command as shown below.
-
-**Using python**: run the application with
-
-```shell
-python3 src/gui.py
-```
-
-or, if you want to use the CLI version of the app,
-
-```shell
-python3 src/main.py
-```
+    ```shell
+    uv run src/main.py  # python3 src/main.py
+    ```
 
 ## Usage
 
@@ -90,7 +72,7 @@ python3 src/main.py
 
 Once the app is running, you will be shown a chord along with a chord shape.
 
-Below that, you'll find four sections, one for each scale. Inside each section there are checkboxes for each mode generated by that scale; click on the checkbox if you think that its mode can be harmonized by the displayed chord.
+Below that, you'll find four sections, one for each scale. Inside each section there are checkboxes for each mode generated by that scale; click on the checkbox if you think that its mode can be harmonised by the displayed chord.
 
 When you're done, press the "Check" button to get the correct answer and see how you did. To get a new question press the "New chord" button.
 
@@ -108,6 +90,6 @@ When you're done, press the "Check" button to get the correct answer and see how
 
 Once the app is running, you will be shown a chord along with a chord shape.
 
-You will then be shown a list of modes derived from the major scale. To select the modes that the chord can harmonize, enter their number(s) separated by a space. When you're done, press Enter. If you think there are no modes that the chord can harmonize, just press Enter.
+You will then be shown a list of modes derived from the major scale. To select the modes that the chord can harmonise, enter their number(s) separated by a space. When you're done, press <kbd>Enter</kbd>. If you think there are no modes that the chord can harmonise, just press <kbd>Enter</kbd>.
 
 Repeat the procedure for every set of modes that will appear until you see your results, then follow the instructions on screen to get a new exercise or quit the app.

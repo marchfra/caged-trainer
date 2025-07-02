@@ -1,86 +1,68 @@
 # CAGED Trainer
 
-Genera un accordo e verifica se l'elenco di modi forniti dall'utente contiene modi validi che l'accordo può armonizzare.
+Genera un accordo e verifica se i modi scelti dall'utente sono modi validi che l'accordo può armonizzare.
 
 ## Indice
 
 - [Installazione](#installazione)
-    - [File binario](#file-binario)
-    - [Codice sorgente](#codice-sorgente)
-- [Esecuzione dell'applicazione](#esecuzione-dellapplicazione)
-    - [File binario](#file-binario-1)
-    - [Codice sorgente](#codice-sorgente-1)
+    - [macOS](#macos)
+    - [Esecuzione dal codice sorgente (macOS / Linux / Windows)](#esecuzione-dal-codice-sorgente-macos--linux--windows)
 - [Utilizzo](#utilizzo)
     - [Interfaccia grafica](#interfaccia-grafica)
     - [Interfaccia testuale](#interfaccia-testuale)
 
 ## Installazione
 
-### File binario
+### macOS
 
-Il file binario compilato è disponibile solo per macOS.
+1. Scarica il più recente `CAGED Trainer.dmg` dalla pagina [Release](https://github.com/marchfra/caged-trainer/releases).
+2. Apri il file `CAGED Trainer.dmg` e trascina l'app nella tua cartella `Applicazioni`.
+3. **Importante**: siccome l'app non è firmata da uno sviluppatore certificato da Apple, macOS ne bloccherà l'esecuzione la prima volta che la apri.
+    Per aprirla comunque:
+    - Vai in **Impostazioni di Sistema** &rarr; **Privacy e Sicurezza**.
+    - Scorri fino al messaggio che segnala che l'app è stata bloccata.
+    - Clicca su **"Apri comunque"**, quindi conferma.
 
-Per scaricarlo, vai alla [pagina Release](https://github.com/marchfra/caged-trainer/releases) e clicca su **caged-trainer** (quello con un piccolo cubo alla sua sinistra).
+    Dopo la prima conferma manuale, macOS permetterà l'esecuzione dell'app normalmente.
 
-Per poter aprire l'applicazione, apri il Terminale (puoi trovarlo in Applicazioni > Utility, oppure scrivendo "Terminale" in Spotlight) e digita le seguenti righe, premendo Invio dopo ciascuna:
+### Esecuzione dal codice sorgente (macOS / Linux / Windows)
 
-```shell
-xattr -d com.apple.quarantine '/percorso/del/file/caged-trainer'
-```
+Se non stai usando macOS, o preferisci eseguire l'app dal sorgente, segui questi passaggi:
 
-Questo comando rimuove l'attributo "quarantena" che macOS applica ai file scaricati da internet. Rimuovere questo attributo consente all'app di funzionare senza avvisi di sicurezza. **Usa questo comando solo per file di cui ti fidi.**
+#### Prerequisiti
 
-```shell
-chmod +x '/percorso/del/file/caged-trainer'
-```
+- git
+- [Python 3.10+](https://www.python.org/downloads/)
+- [uv](https://github.com/astral-sh/uv) (opzionale ma consigliato)
 
-Questo comando rende il file eseguibile come programma. Senza questo permesso, cercando di eseguire il file potresti non ottenere alcun risultato oppure aprirlo in un editor di testo. Usa questo comando se vuoi essere in grado di eseguire il file.
+#### Passaggi
 
-Per impostazione predefinita, il percorso `/percorso/del/file/caged-trainer` dovrebbe essere `~/Downloads/caged-trainer`, ma se non sei sicuro del percorso dell'applicazione puoi trascinare il file dell'app nella finestra del Terminale al posto di scrivere il percorso. Questo inserirà automaticamente il percorso corretto.
+1. Clona la repository:
 
-Potrebbe esserti chiesta la password.
+   ```shell
+   git clone https://github.com/marchfra/caged-trainer.git
+   cd caged-trainer
+   ```
 
-Ora puoi spostare il file dell'applicazione dove preferisci, e anche crearne copie.
+2. Crea e attiva un ambiente virtuale (solo se non usi uv):
 
-### Codice sorgente
+   ```shell
+   python3 -m venv .venv
+   source .venv/bin/activate  # su Windows: .venv\Scripts\activate
+   pip install .
+   ```
 
-Puoi ottenere il codice sorgente compresso dalla [pagina Release](https://github.com/marchfra/caged-trainer/releases).
+3. Avvia l'app:
 
-Per eseguire l'applicazione dal codice sorgente hai bisogno di un'installazione di Python. Se non hai Python installato, puoi scaricarlo da [python.org](https://python.org).
+    ```shell
+    uv run src/gui.py  # python3 src/gui.py
+    ```
 
-## Esecuzione dell'applicazione
+    oppure, se vuoi usare l'interfaccia testuale,
 
-### File binario
-
-Per avviare l'app, è sufficiente fare doppio clic su di essa. Si aprirà una finestra del Terminale; ciò è normale: se stai usando la versione `-cli` l'applicazione viene eseguita all'interno del Terminale, altrimenti ha comunque bisogno del Terminale aperto per essere eseguita.
-
-### Codice sorgente
-
-**Usando `uv` (consigliato)**: se hai `uv` installato, esegui l'applicazione con
-
-```shell
-uv run src/gui.py
-```
-
-oppure, se vuoi usare l'interfaccia testuale,
-
-```shell
-uv run src/main.py
-```
-
-Se non conosci `uv`, puoi saperne di più [qui](https://github.com/astral-sh/uv), oppure semplicemente usare il comando `python3` come mostrato sotto.
-
-**Usando python**: esegui l'applicazione con
-
-```shell
-python3 src/gui.py
-```
-
-oppure, se vuoi usare l'interfaccia testuale,
-
-```shell
-python3 src/main.py
-```
+    ```shell
+    uv run src/main.py  # python3 src/main.py
+    ```
 
 ## Utilizzo
 
@@ -88,7 +70,7 @@ python3 src/main.py
 
 Una volta avviata l'applicazione, ti verrà mostrato un accordo insieme a una forma dell'accordo.
 
-Sotto, troverai quattro sezioni, una per ciascuna scala. All'interno di ogni sezione ci sono dei checkbox per ciascun modo generato da quella scala; clicca sul checkbox se pensi che quel modo possa essere armonizzato dall'accordo visualizzato.
+Sotto di esso troverai quattro sezioni, una per ciascuna scala. All'interno di ogni sezione ci sono dei checkbox per ciascun modo generato da quella scala; clicca sul checkbox se pensi che quel modo possa essere armonizzato dall'accordo visualizzato.
 
 Quando hai finito, premi il pulsante "Check" per ottenere la risposta corretta e vedere come te la sei cavata. Per ottenere una nuova domanda, premi il pulsante "New chord".
 
@@ -106,6 +88,6 @@ Quando hai finito, premi il pulsante "Check" per ottenere la risposta corretta e
 
 Una volta avviata l'applicazione, ti verrà mostrato un accordo insieme a una forma dell'accordo.
 
-Successivamente verrà mostrato un elenco di modi derivati dalla scala maggiore. Per selezionare i modi che l'accordo può armonizzare, inserisci il/i numero/i separati da uno spazio. Quando hai finito, premi Invio. Se pensi che non ci siano modi che l'accordo può armonizzare, premi semplicemente Invio.
+Successivamente verrà mostrato un elenco di modi derivati dalla scala maggiore. Per selezionare i modi che l'accordo può armonizzare, inserisci il/i numero/i separati da uno spazio. Quando hai finito, premi <kbd>Invio</kbd>. Se pensi che non ci siano modi che l'accordo può armonizzare, premi semplicemente <kbd>Invio</kbd>.
 
 Ripeti la procedura per ogni nuovo insieme di modi che apparirà fino a quando vedrai i risultati, quindi segui le istruzioni a schermo per ottenere un nuovo esercizio o uscire dall'app.
