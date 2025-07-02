@@ -28,22 +28,24 @@ jobs:
 
       - name: Build GUI App Bundle with PyInstaller
         run: |
-          pyi-makespec \
-            --name caged-trainer \
+          pyinstaller \
+            --name "CAGED Trainer" \
             --windowed \
             --icon assets/icon.icns \
             --target-architecture universal2 \
             --osx-bundle-identifier com.marchfra.cagedtrainer \
           src/gui.py
 
-      #- name: Zip .app for download
-      #  run: |
-      #    ditto -c -k --sequesterRsrc --keepParent dist/appbundle/caged-trainer.app caged-trainer-mac.zip
+      - name: Zip .app for download
+        run: |
+          ditto \
+            -c -k \
+            --sequesterRsrc \
+            --keepParent \
+          dist/appbundle/CAGED\ Trainer.app caged-trainer-mac.zip
 
       - name: Upload zipped .app
         uses: actions/upload-artifact@v4
         with:
-          # name: caged-trainer-mac-app
-          # path: caged-trainer-mac.zip
-          name: specfile
-          path: caged-trainer.spec
+          name: caged-trainer-mac-app
+          path: caged-trainer-mac.zip
