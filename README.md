@@ -8,6 +8,7 @@ Generate a chord and check if the user-provided list of modes are valid modes th
 
 - [Installation](#installation)
     - [macOS](#macos)
+    - [Windows](#windows)
     - [Running from source (macOS / Linux / Windows)](#running-from-source-macos--linux--windows)
 - [Usage](#usage)
     - [GUI version](#gui-version)
@@ -27,9 +28,33 @@ Generate a chord and check if the user-provided list of modes are valid modes th
 
     After the first manual confirmation, macOS will allow the app to run normally.
 
+### Windows
+
+1. Download the latest `CAGED Trainer.exe` from the [Releases](https://github.com/marchfra/caged-trainer/releases) page.
+2. Double-click the `CAGED Trainer.exe` file to launch the installer.
+3. **Important**: since the app is not digitally signed, Windows may block it on first launch.  
+    To open it anyway:
+
+    - You may see a blue window titled **"Windows protected your PC"**.
+    - Click **"More info"**.
+    - Click **"Run anyway"** to proceed.
+
+    This is a standard SmartScreen warning for new apps and doesn't indicate a real threat.
+
+4. If Microsoft Defender blocks the app entirely:
+
+    - Open the **Start Menu** and search for **"Windows Security"**.
+    - Go to **"Virus & Threat Protection"**.
+    - Click on **"Protection History"**.
+    - Find the alert related to the app (might say "Quarantined" or "Blocked").
+    - Click on it and choose **"Allow on device"** or **"Restore"**.
+    - Try launching the app again.
+
+    After the first manual confirmation, Windows will allow the app to run normally.
+
 ### Running from source (macOS / Linux / Windows)
 
-If you're not using macOS, or prefer to run the app from source, follow these steps:
+If you're not using macOS or Windows, or prefer to run the app from source, follow these steps:
 
 #### Prerequisites
 

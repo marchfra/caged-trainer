@@ -6,6 +6,7 @@ Genera un accordo e verifica se i modi scelti dall'utente sono modi validi che l
 
 - [Installazione](#installazione)
     - [macOS](#macos)
+    - [Windows](#windows)
     - [Esecuzione dal codice sorgente (macOS / Linux / Windows)](#esecuzione-dal-codice-sorgente-macos--linux--windows)
 - [Utilizzo](#utilizzo)
     - [Interfaccia grafica](#interfaccia-grafica)
@@ -25,9 +26,33 @@ Genera un accordo e verifica se i modi scelti dall'utente sono modi validi che l
 
     Dopo la prima conferma manuale, macOS permetterà l'esecuzione dell'app normalmente.
 
+### Windows
+
+1. Scarica il più recente `CAGED Trainer.exe` dalla pagina [Releases](https://github.com/marchfra/caged-trainer/releases).
+2. Apri il file `CAGED Trainer.exe` per lanciare l'applicazione.
+3. **Importante**: siccome l'app non è firmata digitalmente, Windows potrebbe cercare di bloccarla al primo avvio.
+    Per aprirla comunque:
+
+    - Potresti vedere una schermata blu intitolata **"Windows ha protetto il tuo PC"**.
+    - Clicca **"Maggiori informazioni"**.
+    - Clicca **"Esegui comunque"** per avviare l'app.
+
+    Questo è un avviso normale di SmartScreen per le app nuove. Non significa che il file sia pericoloso.
+
+4. Se Microsoft Defender blocca del tutto l'applicazione:
+
+    - Apri il **Menù Start** e cerca **"Sicurezza di Windows"**
+    - Vai su **"Protezione da virus e minacce"**
+    - Scorri in basso e clicca su **"Cronologia protezione"**
+    - Trova l'avviso recente relativo a questa app (potrebbe dire "Quarantena" o "Bloccata").
+    - Cliccaci sopra e scegli **"Consenti sul dispositivo"** o **"Ripristina"**
+    - Dopo averla sbloccata, prova a eseguire di nuovo l'app.
+
+    Dopo la prima conferma manuale, Windows permetterà l'esecuzione dell'app normalmente.
+
 ### Esecuzione dal codice sorgente (macOS / Linux / Windows)
 
-Se non stai usando macOS, o preferisci eseguire l'app dal sorgente, segui questi passaggi:
+Se non stai usando macOS o Windows, o preferisci eseguire l'app dal sorgente, segui questi passaggi:
 
 #### Prerequisiti
 
