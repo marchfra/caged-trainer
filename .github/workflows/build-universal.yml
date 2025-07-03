@@ -1,4 +1,4 @@
-name: Build macOS App Bundle with PyInstaller
+name: Build macOS and Windows App Bundle with PyInstaller
 
 on:
   push:
@@ -71,11 +71,11 @@ jobs:
 
       - name: Build GUI App Bundle with PyInstaller
         run: |
-          pyinstaller ^
-            --name "CAGED Trainer" ^
-            --windowed ^
-            --icon assets/icon.icns ^
-            --target-architecture x86_64 ^
+          pyinstaller \
+            --name "CAGED Trainer" \
+            --windowed \
+            --icon assets/icon.icns \
+            --target-architecture x86_64 \
           src/gui.py
 
       - name: Zip .exe for download
