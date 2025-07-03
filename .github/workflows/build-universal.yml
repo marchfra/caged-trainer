@@ -73,12 +73,8 @@ jobs:
         run: |
           pyinstaller --name "CAGED Trainer" --windowed --icon assets/icon.ico --target-architecture x86_64 src/gui.py
 
-      - name: Zip .exe for download
-        run: |
-          powershell Compress-Archive -Path dist\CAGED\ Trainer.exe -DestinationPath caged-trainer-win.zip
-
-      - name: Upload zipped .exe
+      - name: Upload executable
         uses: actions/upload-artifact@v4
         with:
           name: caged-trainer-win-app
-          path: caged-trainer-win.zip
+          path: dist\CAGED\ Trainer.exe
