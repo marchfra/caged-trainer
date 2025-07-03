@@ -71,12 +71,7 @@ jobs:
 
       - name: Build GUI App Bundle with PyInstaller
         run: |
-          pyinstaller ^
-            --name="CAGED Trainer" ^
-            --windowed ^
-            --icon="assets/icon.ico" ^
-            --target-architecture="x86_64" ^
-          src/gui.py
+          pyinstaller --name "CAGED Trainer" --windowed --icon assets/icon.ico --target-architecture x86_64 src/gui.py
 
       - name: Zip .exe for download
         run: |
