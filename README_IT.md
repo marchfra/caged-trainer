@@ -33,8 +33,8 @@ Genera un accordo e verifica se i modi scelti dall'utente sono modi validi che l
 3. **Importante**: siccome l'app non è firmata digitalmente, Windows potrebbe cercare di bloccarla al primo avvio.
     Per aprirla comunque:
 
-    - Potresti vedere una schermata blu intitolata **"Windows ha protetto il tuo PC"**.
-    - Clicca **"Maggiori informazioni"**.
+    - Potresti vedere una schermata blu intitolata **"PC protetto da Windows"**.
+    - Clicca **"Ulteriori informazioni"**.
     - Clicca **"Esegui comunque"** per avviare l'app.
 
     Questo è un avviso normale di SmartScreen per le app nuove. Non significa che il file sia pericoloso.
@@ -43,8 +43,8 @@ Genera un accordo e verifica se i modi scelti dall'utente sono modi validi che l
 
     - Apri il **Menù Start** e cerca **"Sicurezza di Windows"**
     - Vai su **"Protezione da virus e minacce"**
-    - Scorri in basso e clicca su **"Cronologia protezione"**
-    - Trova l'avviso recente relativo a questa app (potrebbe dire "Quarantena" o "Bloccata").
+    - Clicca su **"Cronologia della protezione"**
+    - Trova l'avviso recente relativo a questa app (potrebbe dire "Minaccia in quarantena" o "Minaccia bloccata").
     - Cliccaci sopra e scegli **"Consenti sul dispositivo"** o **"Ripristina"**
     - Dopo averla sbloccata, prova a eseguire di nuovo l'app.
 

@@ -34,22 +34,21 @@ jobs:
             --icon assets/icon.icns \
             --target-architecture universal2 \
             --osx-bundle-identifier com.marchfra.cagedtrainer \
-            --distpath dist/macos \
           src/gui.py
 
-      # - name: Zip .app for download
-      #   run: |
-      #     ditto \
-      #       -c -k \
-      #       --sequesterRsrc \
-      #       --keepParent \
-      #     dist/macos/CAGED\ Trainer.app caged-trainer-mac.zip
+      - name: Zip .app for download
+        run: |
+          ditto \
+            -c -k \
+            --sequesterRsrc \
+            --keepParent \
+          dist/CAGED\ Trainer.app caged-trainer-mac.zip
 
-      - name: Upload .app
+      - name: Upload zipped .app
         uses: actions/upload-artifact@v4
         with:
           name: caged-trainer-mac-app
-          path: dist/macos
+          path: caged-trainer-mac.zip
 
   build-windows-app:
     runs-on: windows-latest
@@ -78,4 +77,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: caged-trainer-win-app
-          path: dist\windows
+          path: dist\CAGED\ Trainer
