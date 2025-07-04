@@ -77,4 +77,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: caged-trainer-win-app
-          path: dist\CAGED\ Trainer.exe
+          path: dist\"CAGED Trainer.exe"
