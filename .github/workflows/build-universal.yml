@@ -71,7 +71,7 @@ jobs:
           pip install .
           pip install "pyinstaller>=6.0.0"
 
-      - name: Build GUI App Bundle with PyInstaller
+      - name: Build GUI executable with PyInstaller
         run: |
           pyinstaller --name "CAGED Trainer" --windowed --icon assets/icon.ico --target-architecture x86_64 src/gui.py
 
@@ -83,16 +83,6 @@ jobs:
       - name: Build installer with Inno Setup
         run: |
           & "C:\InnoSetup\ISCC.exe" assets\installer.iss
-
-      - name: Find built installer
-        run: |
-          Get-ChildItem -Path . -Filter "CAGED_Trainer_Setup.exe" -Recurse | Select-Object -ExpandProperty FullName > found.txt
-
-      - name: Upload installer path
-        uses: actions/upload-artifact@v4
-        with:
-          name: caged-trainer-win-installer-path
-          path: found.txt
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
