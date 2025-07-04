@@ -2,8 +2,6 @@ name: Build macOS and Windows App Bundle with PyInstaller
 
 on:
   push:
-    branches:
-      - windows_build
     tags:
       - "v*"
   workflow_dispatch:
