@@ -9,48 +9,48 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-macos-app:
-    runs-on: macos-latest
+  # build-macos-app:
+  #   runs-on: macos-latest
 
-    steps:
-      - uses: actions/checkout@v4
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Set up Python (universal2)
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"  # 3.11+ from python.org are universal2
+  #     - name: Set up Python (universal2)
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: "3.13"  # 3.11+ from python.org are universal2
 
-      - name: Upgrade pip, setuptools, wheel
-        run: python -m pip install --upgrade pip setuptools wheel
+  #     - name: Upgrade pip, setuptools, wheel
+  #       run: python -m pip install --upgrade pip setuptools wheel
 
-      - name: Install dependencies
-        run: |
-          pip install .
-          pip install "pyinstaller>=6.0.0"  # PyInstaller with universal2 support
+  #     - name: Install dependencies
+  #       run: |
+  #         pip install .
+  #         pip install "pyinstaller>=6.0.0"  # PyInstaller with universal2 support
 
-      - name: Build GUI App Bundle with PyInstaller
-        run: |
-          pyinstaller \
-            --name "CAGED Trainer" \
-            --windowed \
-            --icon assets/icon.icns \
-            --target-architecture universal2 \
-            --osx-bundle-identifier com.marchfra.cagedtrainer \
-          src/gui.py
+  #     - name: Build GUI App Bundle with PyInstaller
+  #       run: |
+  #         pyinstaller \
+  #           --name "CAGED Trainer" \
+  #           --windowed \
+  #           --icon assets/icon.icns \
+  #           --target-architecture universal2 \
+  #           --osx-bundle-identifier com.marchfra.cagedtrainer \
+  #         src/gui.py
 
-      - name: Zip .app for download
-        run: |
-          ditto \
-            -c -k \
-            --sequesterRsrc \
-            --keepParent \
-          dist/CAGED\ Trainer.app caged-trainer-mac.zip
+  #     - name: Zip .app for download
+  #       run: |
+  #         ditto \
+  #           -c -k \
+  #           --sequesterRsrc \
+  #           --keepParent \
+  #         dist/CAGED\ Trainer.app caged-trainer-mac.zip
 
-      - name: Upload zipped .app
-        uses: actions/upload-artifact@v4
-        with:
-          name: caged-trainer-mac-app
-          path: caged-trainer-mac.zip
+  #     - name: Upload zipped .app
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: caged-trainer-mac-app
+  #         path: caged-trainer-mac.zip
 
   build-windows-app:
     runs-on: windows-latest
@@ -73,22 +73,19 @@ jobs:
 
       - name: Build GUI App Bundle with PyInstaller
         run: |
-          pyinstaller --name "CAGED Trainer" --windowed --icon assets/icon.ico --target-architecture x86_64 --distpath dist\windows src/gui.py
-          Get-ChildItem -Path . -Filter "CAGED Trainer.exe" -Recurse | Select-Object -ExpandProperty FullName > found.txt
+          pyinstaller --name "CAGED Trainer" --windowed --icon assets/icon.ico --target-architecture x86_64 src/gui.py
 
+      - name: Download and install Inno Setup
+        run: |
+          Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is.exe
+          Start-Process -Wait -FilePath .\is.exe -ArgumentList "/VERYSILENT", "/DIR=C:\InnoSetup"
 
-      # - name: Download and install Inno Setup
-      #   run: |
-      #     Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is.exe
-      #     Start-Process -Wait -FilePath .\is.exe -ArgumentList "/VERYSILENT", "/DIR=C:\InnoSetup"
-
-      # - name: Build installer with Inno Setup
-      #   run: |
-      #     & "C:\InnoSetup\ISCC.exe" assets\installer.iss
+      - name: Build installer with Inno Setup
+        run: |
+          & "C:\InnoSetup\ISCC.exe" assets\installer.iss
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
           name: caged-trainer-win-installer
-          # path: build\CAGED_Trainer_Setup.exe
-          path: found.txt
+          path: build\CAGED_Trainer_Setup.exe
