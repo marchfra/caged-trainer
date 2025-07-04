@@ -84,6 +84,16 @@ jobs:
         run: |
           & "C:\InnoSetup\ISCC.exe" assets\installer.iss
 
+      - name: Find built installer
+        run: |
+          Get-ChildItem -Path . -Filter "CAGED_Trainer_Setup.exe" -Recurse | Select-Object -ExpandProperty FullName > found.txt
+
+      - name: Upload installer path
+        uses: actions/upload-artifact@v4
+        with:
+          name: caged-trainer-win-installer-path
+          path: found.txt
+
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
