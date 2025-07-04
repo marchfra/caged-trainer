@@ -74,18 +74,21 @@ jobs:
       - name: Build GUI App Bundle with PyInstaller
         run: |
           pyinstaller --name "CAGED Trainer" --windowed --icon assets/icon.ico --target-architecture x86_64 --distpath dist\windows src/gui.py
+          Get-ChildItem -Path . -Filter "CAGED Trainer.exe" -Recurse | Select-Object -ExpandProperty FullName > found.txt
 
-      - name: Download and install Inno Setup
-        run: |
-          Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is.exe
-          Start-Process -Wait -FilePath .\is.exe -ArgumentList "/VERYSILENT", "/DIR=C:\InnoSetup"
 
-      - name: Build installer with Inno Setup
-        run: |
-          & "C:\InnoSetup\ISCC.exe" assets\installer.iss
+      # - name: Download and install Inno Setup
+      #   run: |
+      #     Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is.exe
+      #     Start-Process -Wait -FilePath .\is.exe -ArgumentList "/VERYSILENT", "/DIR=C:\InnoSetup"
+
+      # - name: Build installer with Inno Setup
+      #   run: |
+      #     & "C:\InnoSetup\ISCC.exe" assets\installer.iss
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
           name: caged-trainer-win-installer
-          path: build\CAGED_Trainer_Setup.exe
+          # path: build\CAGED_Trainer_Setup.exe
+          path: found.txt
