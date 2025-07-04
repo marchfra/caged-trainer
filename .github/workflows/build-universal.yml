@@ -2,6 +2,8 @@ name: Build macOS and Windows App Bundle with PyInstaller
 
 on:
   push:
+    branches:
+      - windows_build
     tags:
       - "v*"
   workflow_dispatch:
@@ -80,7 +82,7 @@ jobs:
 
       - name: Build installer with Inno Setup
         run: |
-          & "C:\InnoSetup\ISCC.exe" build\installer.iss
+          & "C:\InnoSetup\ISCC.exe" assets\installer.iss
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
