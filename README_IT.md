@@ -113,6 +113,8 @@ Quando hai finito, premi il pulsante "Check" per ottenere la risposta corretta e
 
 ### Interfaccia testuale
 
+Questa è accessibile solo eseguendo direttamente il codice sorgente.
+
 Una volta avviata l'applicazione, ti verrà mostrato un accordo insieme a una forma dell'accordo.
 
 Successivamente verrà mostrato un elenco di modi derivati dalla scala maggiore. Per selezionare i modi che l'accordo può armonizzare, inserisci il/i numero/i separati da uno spazio. Quando hai finito, premi <kbd>Invio</kbd>. Se pensi che non ci siano modi che l'accordo può armonizzare, premi semplicemente <kbd>Invio</kbd>.

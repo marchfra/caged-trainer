@@ -115,6 +115,8 @@ When you're done, press the "Check" button to get the correct answer and see how
 
 ### CLI version
 
+This is available only when running the source code directly.
+
 Once the app is running, you will be shown a chord along with a chord shape.
 
 You will then be shown a list of modes derived from the major scale. To select the modes that the chord can harmonise, enter their number(s) separated by a space. When you're done, press <kbd>Enter</kbd>. If you think there are no modes that the chord can harmonise, just press <kbd>Enter</kbd>.
