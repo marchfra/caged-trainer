@@ -30,27 +30,29 @@ Generate a chord and check if the user-provided list of modes are valid modes th
 
 ### Windows
 
-1. Download the latest `CAGED Trainer.exe` from the [Releases](https://github.com/marchfra/caged-trainer/releases) page.
-2. Double-click the `CAGED Trainer.exe` file to launch the installer.
-3. **Important**: since the app is not digitally signed, Windows may block it on first launch.  
-    To open it anyway:
+1. Download the latest `CAGED_Trainer_Setup.exe` from the [Releases](https://github.com/marchfra/caged-trainer/releases) page.
+2. Double-click the `CAGED_Trainer_Setup.exe` file and follow the on-screen instructions to install the app.
+3. Once installed, you'll find **CAGED Trainer** in your Start menu and possibly as a shortcut on your desktop, if you chose to create it during the installation process. You can uninstall the app normally from **Settings** &rarr; **Apps**.
 
-    - You may see a blue window titled **"Windows protected your PC"**.
-    - Click **"More info"**.
-    - Click **"Run anyway"** to proceed.
+#### If you see "Windows protected your PC"
 
-    This is a standard SmartScreen warning for new apps and doesn't indicate a real threat.
+Because the app is not digitally signed, Windows may show you a SmartScreen warning when trying to launch the installation:
 
-4. If Microsoft Defender blocks the app entirely:
+1. Click **"More info"**
+2. Click **"Run anyway"** to continue the installation.
 
-    - Open the **Start Menu** and search for **"Windows Security"**.
-    - Go to **"Virus & Threat Protection"**.
-    - Click on **"Protection History"**.
-    - Find the alert related to the app (might say "Quarantined" or "Blocked").
-    - Click on it and choose **"Allow on device"** or **"Restore"**.
-    - Try launching the app again.
+This is a standard SmartScreen warning for new apps and doesn't indicate a real threat.
 
-    After the first manual confirmation, Windows will allow the app to run normally.
+#### If Microsoft Defender blocks the app entirely
+
+1. Open the **Start Menu** and search for **"Windows Security"**.
+2. Go to **"Virus & Threat Protection"**.
+3. Click on **"Protection History"**.
+4. Find the alert related to the app (might say "Quarantined" or "Blocked").
+5. Click on it and choose **"Allow on device"** or **"Restore"**.
+6. Try launching the app again.
+
+After the first confirmation, Windows will allow the app to run normally.
 
 ### Running from source (macOS / Linux / Windows)
 

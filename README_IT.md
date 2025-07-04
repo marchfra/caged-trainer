@@ -28,27 +28,29 @@ Genera un accordo e verifica se i modi scelti dall'utente sono modi validi che l
 
 ### Windows
 
-1. Scarica il più recente `CAGED Trainer.exe` dalla pagina [Releases](https://github.com/marchfra/caged-trainer/releases).
-2. Apri il file `CAGED Trainer.exe` per lanciare l'applicazione.
-3. **Importante**: siccome l'app non è firmata digitalmente, Windows potrebbe cercare di bloccarla al primo avvio.
-    Per aprirla comunque:
+1. Scarica il più recente `CAGED_Trainer_Setup.exe` dalla pagina [Releases](https://github.com/marchfra/caged-trainer/releases).
+2. Apri il file `CAGED_Trainer_Setup.exe` e segui le istruzioni sullo schermo per installare l'applicazione.
+3. Al termine dell'installazione troverai **CAGED Trainer** nel menu Start ed eventualmente come shortcut sul desktop, se hai scelto di crearlo durante l'installazione. Potrai disinstallarlo in ogni momento da **Impostazioni** &rarr; **App**.
 
-    - Potresti vedere una schermata blu intitolata **"PC protetto da Windows"**.
-    - Clicca **"Ulteriori informazioni"**.
-    - Clicca **"Esegui comunque"** per avviare l'app.
+#### Se appare il messaggio "PC protetto da Windows"
 
-    Questo è un avviso normale di SmartScreen per le app nuove. Non significa che il file sia pericoloso.
+Poiché l'app non è firmata digitalmente, potresti vedere un avviso SmartScreen quando cerchi di avviare l'installazione:
 
-4. Se Microsoft Defender blocca del tutto l'applicazione:
+1. Clicca su **"Ulteriori informazioni"**.
+2. Poi clicca su **"Esegui comunque"** per avviare l'installazione.
 
-    - Apri il **Menù Start** e cerca **"Sicurezza di Windows"**
-    - Vai su **"Protezione da virus e minacce"**
-    - Clicca su **"Cronologia della protezione"**
-    - Trova l'avviso recente relativo a questa app (potrebbe dire "Minaccia in quarantena" o "Minaccia bloccata").
-    - Cliccaci sopra e scegli **"Consenti sul dispositivo"** o **"Ripristina"**
-    - Dopo averla sbloccata, prova a eseguire di nuovo l'app.
+Questo è un avviso comune per app nuove o non firmate, e non indica che il file sia dannoso.
 
-    Dopo la prima conferma manuale, Windows permetterà l'esecuzione dell'app normalmente.
+#### Se Microsoft Defender blocca l'app
+
+1. Apri il menu **Start** e cerca **"Sicurezza di Windows"**
+2. Vai su **"Protezione da virus e minacce"**
+3. Clicca su **"Cronologia della protezione"**
+4. Trova l'avviso recente relativo a questa app (potrebbe dire "Minaccia in quarantena" o "Minaccia bloccata").
+5. Cliccaci sopra e scegli **"Consenti sul dispositivo"** o **"Ripristina"**
+6. Dopo averla sbloccata, prova a eseguire di nuovo l'app.
+
+Dopo questa prima autorizzazione, Windows permetterà l'esecuzione dell'app normalmente.
 
 ### Esecuzione dal codice sorgente (macOS / Linux / Windows)
 
