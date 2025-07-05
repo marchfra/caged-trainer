@@ -149,7 +149,7 @@ class CagedTrainer(tk.Tk):
         super().__init__()
         self.title("CAGED Trainer")
         if os.name == "nt":
-            self.iconbitmap("assets/icon.ico")
+            self.iconbitmap("_internal/icon.ico")
 
         self._init_window(min_width, min_height)
         self._init_variables()
