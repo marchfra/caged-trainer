@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 import tkinter.font as tkfont
 from tkinter import ttk
@@ -147,6 +148,8 @@ class CagedTrainer(tk.Tk):
         """
         super().__init__()
         self.title("CAGED Trainer")
+        if os.name == "nt":
+            self.iconbitmap("assets/icon.ico")
 
         self._init_window(min_width, min_height)
         self._init_variables()
