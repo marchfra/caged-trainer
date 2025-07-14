@@ -246,7 +246,7 @@ class CagedTrainer(tk.Tk):
         frm_answers.grid(column=0, row=1, sticky="nsew")
 
         for i, (name, scale) in enumerate(SCALES.items()):
-            answer_set = AnswerSet(frm_answers, title=name, options=scale.keys())
+            answer_set = AnswerSet(frm_answers, title=name, options=list(scale.keys()))
             answer_set.grid(column=i, row=0, sticky="nsew", padx=10, pady=10)
             self.answer_sets.append(answer_set)
             self.bind_all(f"<Key-{i + 1}>", answer_set.focus_first_child)
